@@ -43,7 +43,7 @@ class AnimatedText extends AnimatedObject {
     //calculate textWidth & textHeight
     textFont(this.font, this.fontSize);
     this.textWidth = (textWidth(splitText[index]));
-    this.textHeight = (this.lines > 1)?  (this.lines * this.textLeading() + textAscent() - textDescent()):(textAscent() -textDescent());
+    this.textHeight = (this.lines > 1)?  (this.lines * this.textLead() + textAscent() + textDescent()):(textAscent() +textDescent());
     
     win = createGraphics((int)this.textWidth, (int)this.textHeight);
     
@@ -58,7 +58,7 @@ class AnimatedText extends AnimatedObject {
     }
      
   }
-  float textLeading() {
+  float textLead() {
     return g.textLeading;
   }
   void initAnimation (int direction){
