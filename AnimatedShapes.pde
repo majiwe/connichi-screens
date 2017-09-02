@@ -1,7 +1,5 @@
 class AnimatedShapes extends AnimatedObject {
   PShape shape;
-  color strokeColor;
-  Ani animation;
 
   AnimatedShapes(PShape s, int x, int y, int w, int h) {
     super(x,y,w,h);
