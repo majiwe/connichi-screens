@@ -56,6 +56,7 @@ boolean announcement = false,
         nextTeaser = false;       
     
 PImage backgroundImage,
+       stage,
        errorPage;
        
 PrintWriter output = null;
@@ -116,22 +117,6 @@ void initTeaserAnimation (String blendType) {
      
     teaserSeq.endSequence();
 }
-
-void initTeaserText() {
-
-      teaserHeadline = new AnimatedText("Teaserheadline", PrimaryFont, 90, defaultColor, 100,150, LEFT, TOP);
-      teaserHeadline.initAnimation(LEFT);
-      
-      teaserTime = new AnimatedText("11:30", PrimaryFont, 100, defaultColor, 394, 794, CENTER,CENTER);
-      teaserTime.initAnimation(BOTTOM);
-      
-      teaserDay = new AnimatedText("Freitag", PrimaryFont, 60, defaultColor, 160, 710, RIGHT, TOP);
-      teaserDay.initAnimation(RIGHT);
-      
-      teaserLocation = new AnimatedText("Gesellschaftsaal", PrimaryFont, 65, defaultColor, 610, 925, LEFT, BOTTOM);
-      teaserLocation.initAnimation(LEFT);  
-}
-
 
 void initColorSet() {
   ColorSet temp = new ColorSet();
@@ -217,6 +202,25 @@ void initColorSet() {
   
 }
 
+
+/************************************************************************************
+                          init Objects to Display
+*************************************************************************************/  
+void initTeaserText() {
+
+      teaserHeadline = new AnimatedText("Teaserheadline", PrimaryFont, 110, defaultColor, 100,150, LEFT, CENTER);
+      teaserHeadline.initAnimation(LEFT);
+      
+      teaserTime = new AnimatedText("11:30", PrimaryFont, 100, defaultColor, 394, 794, CENTER,CENTER);
+      teaserTime.initAnimation(BOTTOM);
+      
+      teaserDay = new AnimatedText("Freitag", PrimaryFont, 60, defaultColor, 160, 710, RIGHT, TOP);
+      teaserDay.initAnimation(RIGHT);
+      
+      teaserLocation = new AnimatedText("Gesellschaftsaal", PrimaryFont, 65, defaultColor, 610, 925, LEFT, BOTTOM);
+      teaserLocation.initAnimation(LEFT);  
+}
+
 void initOrnament() {
    leftOrnament = new AnimatedShapes(hexagon, 350, 700, 300, 300);
    leftOrnament.setScale(0.0);
@@ -232,7 +236,7 @@ void initOrnament() {
 
 
 /************************************************************************************
-                          init Objects
+                          basic Programm Functions
 *************************************************************************************/  
 
 void setup() {
@@ -252,10 +256,11 @@ void setup() {
   defaultColor = color(0,0,0);
    
   //set Font
-  PrimaryFont = createFont(dataPath("assets/fonts/Uni Sans Heavy.otf"),80);
+  PrimaryFont = createFont(dataPath("assets/fonts/American Purpose.otf"),80);
     
   //setup a default Background
-  backgroundImage = loadImage(dataPath("default/background.jpg"));  
+  backgroundImage = loadImage(dataPath("default/background.jpg"));
+  stage = createImage(SCREEN_WIDTH,SCREEN_HEIGHT,RGB);
 //  image(backgroundImage,0,0); //draw it once
   
   // init default-styling
@@ -283,9 +288,9 @@ void setup() {
   
   this.initTeaserAnimation("curtain");
   
-  advert = new Movie(this, dataPath("werbung/video_1.mp4"));
+ /* advert = new Movie(this, dataPath("werbung/video_1.mp4"));
   advert.play();
-  advert.pause();
+  advert.pause();*/
   //Write File
   output = createWriter(dataPath("log/playlog.txt"));
 }
@@ -294,8 +299,8 @@ void exit() {
 
 void draw() {
    println(frameRate);
-   background(backgroundImage); //default Background
-  // println ("before switch: "+ millis());
+   //background(backgroundImage); //default Background
+
   switch(playType) {
     case FIRSTRUN:
       checkForNext = true;
@@ -309,19 +314,15 @@ void draw() {
     case PLAYTYPE_ADVERT: 
      // playMovie(advert, false); 
       break;
-    default: 
-      // println("nothing here to see");      
+    default:     
   }
-  // println ("after switch: "+ millis());
   
   if (record) {
     saveFrame(dataPath("screenshot/frame-#########.tga"));
   }
-  // println ("before checkForNext: "+ millis());
   if (checkForNext){
     thread("checkNext");
   }
-  // println ("after checkForNext: "+ millis());
 }
 
 void checkNext() {
@@ -343,11 +344,6 @@ void checkNext() {
       }
       teaser.stop(); teaser = null;
       loadTeaser(teaserIndex);
-      //if() {
-     //   checkNext();
-     //   return;
-     // }
-      
       nextTeaser = false;   
   }
   playType = PLAYTYPE_TEASER;
@@ -357,16 +353,16 @@ void playMovie(Movie movie, boolean isTeaser){
   if(movie.available()){
     movie.read();
   }
-  // println ("before drawTeaser: "+ millis());
+   println ("before drawTeaser: "+ millis());
   if(isTeaser){ drawTeaser(movie); }
   else { 
     image(movie,0,0); 
     g.removeCache(movie);
     }
-    // println ("before backgroundimage: "+ millis());
+    println ("before backgroundimage: "+ millis());
   
   blende.display(backgroundImage); 
-  // println ("after backgroundImage: "+ millis());
+   println ("after backgroundImage: "+ millis());
 }
 
 
@@ -433,23 +429,24 @@ void updateTeaser() {
       teaser.noLoop();
       teaser.play();
       
-      //AnimatedText (String text, PFont font, int fontSize, int x, int y)
-  
       teaserHeadline.setText(aktTeaser.headline);
       teaserHeadline.setColor(aktColor.primary);
-     
       
       teaserTime.setText(aktTeaser.time);
       teaserTime.setColor(aktColor.primary);
-      teaserTime.initAnimation(TOP);
       
       teaserDay.setText(aktTeaser.day);
       teaserDay.setColor(aktColor.primary);
-      teaserDay.initAnimation(RIGHT);
       
       teaserLocation.setText(aktTeaser.location);
       teaserLocation.setColor(aktColor.third);
-      teaserLocation.initAnimation(LEFT);
+      
+      color newColor = (aktColor.highlight & 0xffffff) | (25 << 24);
+      bigOrnament.setColor(newColor);
+      leftOrnament.setColor(aktColor.elements);
+      rightOrnament.setColor(aktColor.elements);
+      
+      vLayer.setColor(aktColor.highlight);
       
       teaserReady = true;    
 }
@@ -471,35 +468,24 @@ void drawTeaser(Movie movie){
    
   //setGradiant(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, aktColor.background, aktColor.elements, Y_AXIS);
   clear();
-  // println ("before teaserBg: "+ millis());
+   println ("before teaserBg: "+ millis());
   fill(aktColor.background);
   rect(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
   
-
-  // println ("before bigOrnament: "+ millis());
-  color newColor = (aktColor.highlight & 0xffffff) | (25 << 24);
-  bigOrnament.setColor(newColor);
+  println ("before bigOrnament: "+ millis());
   bigOrnament.display();
-  
-  // println ("before videoLayer: "+ millis());
-  vLayer.setColor(aktColor.highlight);
+  println ("before videolayer: "+ millis());
   vLayer.display(movie);
-  
-  // println ("before leftOrnament: "+ millis());
-  leftOrnament.setColor(aktColor.elements);
+  println ("before littleOrnament: "+ millis());
+  rightOrnament.display();
   leftOrnament.display();
   
-  // println ("before Textlines: "+ millis());
+  println ("before text: "+ millis());
   teaserHeadline.display();
   teaserDay.display();
   teaserTime.display();
   teaserLocation.display();
-    
-  // println ("before rightOrnament: "+ millis());
-  rightOrnament.setColor(aktColor.elements);
-  rightOrnament.display();
-  
-  // println ("before endofTeaser: "+ millis());
+ println ("before afterText: "+ millis());
   if(teaserSeq.isEnded()){ nextTeaser = true; isPlaying = false; checkForNext = true;}
 }
 
