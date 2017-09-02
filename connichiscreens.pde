@@ -25,6 +25,7 @@ final int FIRSTRUN = 0,
           
 File [] teaserFiles;
 boolean record = false; 
+boolean debug = false;
 
 // Parameter for TeaserList
 ArrayList<Teaser> teasers;
@@ -59,7 +60,7 @@ PImage backgroundImage,
        stage,
        errorPage;
        
-PrintWriter output = null;
+PrintWriter playLog = null, errorLog = null;
 Blende blende;
 String headline, information;
 
@@ -243,6 +244,7 @@ void setup() {
   
   //set Size of our canvas & framerate
   size(1920,1080);
+  surface.setResizable(true);
   smooth(2);
   //frameRate(25);
   
@@ -292,7 +294,8 @@ void setup() {
   advert.play();
   advert.pause();*/
   //Write File
-  output = createWriter(dataPath("log/playlog.txt"));
+  playLog = createWriter(dataPath("log/playlog.txt"));
+  errorLog = createWriter(dataPath("log/errorlog.txt"));
 }
 void exit() {
 }
@@ -329,12 +332,12 @@ void checkNext() {
   checkForNext = false;
   if (checkAnnouncement("announcement.json")) { 
     playType = PLAYTYPE_ANNOUNCE; 
-    log("Announcement was played");    
+    playLog("Announcement was played");    
     return;
   }
   else if (false /*playtimeAdvertise >= timerAdvertise*/ ){ 
     playType = PLAYTYPE_ADVERT; 
-    log("Advertisment was played");  
+    playLog("Advertisment was played");  
     return;
   }
   else if (nextTeaser) {
@@ -353,16 +356,16 @@ void playMovie(Movie movie, boolean isTeaser){
   if(movie.available()){
     movie.read();
   }
-   println ("before drawTeaser: "+ millis());
+   debugLog("drawTeaser");
   if(isTeaser){ drawTeaser(movie); }
   else { 
-    image(movie,0,0); 
+    set(0,0,movie); 
     g.removeCache(movie);
     }
-    println ("before backgroundimage: "+ millis());
+    debugLog("backgroundimage");
   
   blende.display(backgroundImage); 
-   println ("after backgroundImage: "+ millis());
+  debugLog("after backgroundImage");
 }
 
 
@@ -414,7 +417,7 @@ void loadTeaser(int index) {
        return;
      } */ 
      aktColor = myColors.get(aktTeaser.type);
-     log("Teaser "+(teaserIndex+1)+": "+aktTeaser.day+" "+aktTeaser.time+" - ‘"+aktTeaser.headline+"‘ was played");
+     playLog("Teaser "+(teaserIndex+1)+": "+aktTeaser.day+" "+aktTeaser.time+" - ‘"+aktTeaser.headline+"‘ was played");
      
      this.updateTeaser();
      this.resetTeaser();
@@ -468,24 +471,24 @@ void drawTeaser(Movie movie){
    
   //setGradiant(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, aktColor.background, aktColor.elements, Y_AXIS);
   clear();
-   println ("before teaserBg: "+ millis());
+   debugLog("teaserBg");
   fill(aktColor.background);
   rect(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
   
-  println ("before bigOrnament: "+ millis());
+  debugLog("bigOrnament");
   bigOrnament.display();
-  println ("before videolayer: "+ millis());
+  debugLog("videolayer");
   vLayer.display(movie);
-  println ("before littleOrnament: "+ millis());
+  debugLog("littleOrnament");
   rightOrnament.display();
   leftOrnament.display();
   
-  println ("before text: "+ millis());
+  debugLog("text");
   teaserHeadline.display();
   teaserDay.display();
   teaserTime.display();
   teaserLocation.display();
- println ("before afterText: "+ millis());
+ debugLog("afterText");
   if(teaserSeq.isEnded()){ nextTeaser = true; isPlaying = false; checkForNext = true;}
 }
 
@@ -493,9 +496,20 @@ void drawTeaser(Movie movie){
                           Write Log
 *************************************************************************************/   
 
-void log(String data){
-  output.println(data);
-  output.flush(); 
+void playLog(String data){
+  playLog.println("Playlog - Cicle ("+cicle+"): "+data);
+  playLog.flush(); 
+}
+
+void errorLog(String data){
+  errorLog.println("Error: "+data);
+  errorLog.flush(); 
+}
+
+void debugLog(String milestone){
+  if(debug) {
+    println("before "+milestone+" "+millis());
+  }
 }
 
 /************************************************************************************
