@@ -6,8 +6,8 @@ class AnimatedObject {
     Ani animation;
 
 public int x, y, 
-           width, height, rotation = 0, borderWidth = 0;
-public float scale = 1.0;
+           width, height, borderWidth = 0;
+public float scale = 1.0, rotation = 0.0;
 
   AnimatedObject(int x, int y, int w, int h) {
     this.x = x;
