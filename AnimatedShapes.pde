@@ -18,9 +18,7 @@ class AnimatedShapes extends AnimatedObject {
     rotate(radians(this.rotation));
     fill(this.fillColor);
     scale(this.scale);
-    shape(hexagon,0,0, this.height, this.width);
-  //  rotate(radians(-this.rotation));
-  //  translate(-(this.x+(this.height/2)), -(this.y+(this.width/2)));
+    shape(this.shape,0,0, this.height, this.width);
     popMatrix();
   }
 }
