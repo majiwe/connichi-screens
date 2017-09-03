@@ -1,5 +1,4 @@
 class AnimatedText extends AnimatedObject {
-  String newline = System.getProperty("line.separator");
   PGraphics win;
   String text;
   int lines;
@@ -30,23 +29,25 @@ class AnimatedText extends AnimatedObject {
     //split the Text in multiple Lines & count lines
     String[] splitText = text.split("_");
     this.lines = splitText.length;
-    this.text =String.join(newline, splitText);
+    this.text =String.join(System.lineSeparator(), splitText);
+    
+    textFont(this.font, this.fontSize);
     
     //fetch longest String in array
     int index = 0; 
-    int elementLength = splitText[0].length();
+    float zeilenWeite = textWidth(splitText[0]);
     for(int i=1; i < this.lines; i++) {
-        if(splitText[i].length() > elementLength) {
-            index = i; elementLength = splitText[i].length();
+        if(textWidth(splitText[i]) > zeilenWeite) {
+            index = i; zeilenWeite = textWidth(splitText[i]);
         }
     }
     //calculate textWidth & textHeight
-    textFont(this.font, this.fontSize);
-    this.textWidth = (textWidth(splitText[index]));
-    this.textHeight = (this.lines > 1)?  (this.lines * this.textLead() + textAscent() + textDescent()):(textAscent() +textDescent());
+    this.textWidth = zeilenWeite;
+    
+    this.textHeight = (this.lines > 1)?  (this.lines * ( textAscent() + textDescent())):(textAscent() +textDescent());
     
     win = createGraphics((int)this.textWidth, (int)this.textHeight);
-    
+
     this.endPos_X = ((this.alignX == RIGHT)?(this.textWidth):((this.alignX == CENTER)?(0.5*this.textWidth):0));
     this.endPos_Y = ((this.alignY == BOTTOM)?(this.textHeight):((this.alignY == CENTER)?(this.textHeight*0.5):0));
     
@@ -95,15 +96,18 @@ class AnimatedText extends AnimatedObject {
       win.beginDraw();
       win.clear();
       win.noStroke();
-      win.fill(123,123,123);
-      //win.strokeWeight(4);
-      //win.stroke(255,255,255);
-      win.rect(0,0,this.textWidth, this.textHeight);
+      if(debug){
+        win.fill(123,123,123);
+        win.strokeWeight(4);
+        win.stroke(255,255,255);
+        win.rect(0,0,this.textWidth, this.textHeight);
+      }
       win.fill(this.fillColor);
       win.textAlign(this.alignX,this.alignY);
       win.textFont(font, this.fontSize);
+      win.textLeading((this.fontSize*1.1));
       win.text(this.text, this.fontX, this.fontY);
-      win.endDraw();    
+      win.endDraw();
       image(win, this.x, this.y);
       g.removeCache(win);
     }
