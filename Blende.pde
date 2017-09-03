@@ -1,20 +1,27 @@
 class Blende extends AnimatedObject{
   int maskX, maskY, maskWidth, maskHeight;
   PGraphics mask;
+  boolean logo = false;
+  PImage logoImage, stage;
   
-  Blende(int x , int y, int w, int h){
+  Blende(PImage stage, int x , int y, int w, int h){
     super(x,y,w,h);
     this.maskWidth = w;
     this.maskHeight = h;
+    this.stage = stage;
     mask = createGraphics(this.width, this.height);
     
   }
   void initMask(String type) {
-     if (type == "curtain") {
+    /* if (type == "curtain") {*/
        this.maskWidth = 1920;
        this.maskHeight = 0;
        this.maskY = (this.height/2);
-     }
+     /*}*/
+  }
+  void setLogo (PImage l) {
+    this.logoImage = l;
+    this.logo = true;
   }
   
   void display(PImage myImage){
@@ -37,6 +44,11 @@ class Blende extends AnimatedObject{
     // println ("after append blendeMask: "+ millis());
     image(myImage,0,0);
     // println ("after blendeMask drawn: "+ millis());
+    if(this.logo) {
+      imageMode(CENTER);
+      image(this.logoImage,this.width/2,this.height/2);
+      imageMode(CORNER);
+    }
     g.removeCache(myImage);
   }
   
@@ -50,6 +62,5 @@ class Blende extends AnimatedObject{
       String propertylist = (direction == "in") ? ("maskY:0,maskHeight:"+this.height) : ("maskY:"+(this.height/2)+",maskHeight:0");
       return super.setAnimation(dur, offset, propertylist, Ani.QUINT_IN);
   }
-      return super.setAnimation(dur, offset, propertylist, Ani.QUINT_IN);
-  }
+
 }
