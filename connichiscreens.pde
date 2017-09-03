@@ -58,6 +58,7 @@ boolean announcement = false,
     
 PImage backgroundImage,
        stage,
+       logoImage,
        errorPage;
        
 PrintWriter playLog = null, errorLog = null;
@@ -258,10 +259,11 @@ void setup() {
   defaultColor = color(0,0,0);
    
   //set Font
-  PrimaryFont = createFont(dataPath("assets/fonts/American Purpose.otf"),80);
+  PrimaryFont = createFont(dataPath("assets/fonts/FTY SPEEDY CASUAL NCV.ttf"),80);
     
   //setup a default Background
   backgroundImage = loadImage(dataPath("default/background.jpg"));
+  logoImage = loadImage(dataPath("assets/images/logo_small.png"));
   stage = createImage(SCREEN_WIDTH,SCREEN_HEIGHT,RGB);
 //  image(backgroundImage,0,0); //draw it once
   
@@ -273,11 +275,12 @@ void setup() {
   
   //init Blende
   blende = new Blende(0,0,SCREEN_WIDTH, SCREEN_HEIGHT);
+  
     
   // set up the videoLayer
-  vLayer = new Videolayer (hexagon, 1920, -100, 1080, 1080);
+  vLayer = new Videolayer (hexagon, 1920, -50, 1080, 1080);
   vLayer.setRotation(-45);
-  vLayer.setupBackground(-40,0);
+  vLayer.setupBackground(50,-50);
    
   //Set up our TeaserFiles
   //loadFiles("teaser"); // remove
@@ -288,7 +291,8 @@ void setup() {
   this.initTeaserText();
   this.initOrnament();
   
-  this.initTeaserAnimation("curtain");
+  blende.initMask("diagonal");
+  this.initTeaserAnimation("diagonal");
   
  /* advert = new Movie(this, dataPath("werbung/video_1.mp4"));
   advert.play();
@@ -364,7 +368,7 @@ void playMovie(Movie movie, boolean isTeaser){
     }
     debugLog("backgroundimage");
   
-  blende.display(backgroundImage); 
+  blende.display(backgroundImage);
   debugLog("after backgroundImage");
 }
 
@@ -469,7 +473,6 @@ void drawTeaser(Movie movie){
 
  if(!isPlaying){ teaserSeq.start(); isPlaying = true;}
    
-  //setGradiant(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, aktColor.background, aktColor.elements, Y_AXIS);
   clear();
    debugLog("teaserBg");
   fill(aktColor.background);
