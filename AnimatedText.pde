@@ -108,7 +108,7 @@ class AnimatedText extends AnimatedObject {
       g.removeCache(win);
     }
     catch(NullPointerException e){
-      println(e.getMessage());
+      errorLog(e.getMessage());
     }
   }
   
