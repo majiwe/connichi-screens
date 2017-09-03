@@ -1,12 +1,10 @@
-class Videolayer extends AnimatedObject {
-  PGraphics mask, background;
-  PShape shape;
+class Videolayer extends AnimatedShapes {
+  PGraphics mask;
   boolean hasBG;
-  int startX, startY, endX, endY;
-  int offX, offY;
+  int offX = 0, offY = 0;
 
   Videolayer(PShape s, int x, int y, int w, int h) {
-    super(x,y,w,h);
+    super(s,x,y,w,h);
     this.shape = s;
     this.fillColor = color(0,0,0);
     mask = createGraphics(this.width, this.height);
@@ -14,16 +12,12 @@ class Videolayer extends AnimatedObject {
   
   void updateLayer(){
     this.setupLayer(this.mask, 0, 0, this.width, this.height, this.rotation);
-    
-    if(hasBG) {
-      this.background.fill(this.fillColor);
-      this.setupLayer(this.background, this.offX, this.offY, this.width, this.height, this.rotation);
-    }
   }
   
   void setupBackground(int off_x, int off_y){
-    this.hasBG = true; this.offX = off_x; this.offY = off_y;
-    background = createGraphics(this.width, this.height);
+    this.hasBG = true;
+    this.offX = off_x;
+    this.offY = off_y;
   }
   
  
@@ -36,8 +30,6 @@ class Videolayer extends AnimatedObject {
     layer.translate((w/2),(h/2));
     layer.rotate(radians(rotation));
     layer.shape(this.shape, x, y, w, h);
- //   layer.rotate(radians(-rotation));
- //   layer.translate(-(w/2),-(h/2));
     layer.popMatrix();
     layer.endDraw();
   }
@@ -46,16 +38,18 @@ class Videolayer extends AnimatedObject {
     float w = (this.width*this.scale);
     float h = (this.height*this.scale);
     this.updateLayer();
-    if(hasBG)  {
-      image(this.background, this.x,this.y,w,h);
-      g.removeCache(this.background);
-    }
-      //mask our video with our shape & display it
+    if(hasBG)  { displayBG(); }
+    
+    //mask our video with our shape & display it
     if(movie.width >= this.width) {
       movie.mask(this.mask);
-      image(movie,this.x,this.y,w,h);
+      image(movie,(this.x+this.offX),(this.y+this.offY),w,h);
       g.removeCache(movie);
     }
+  }
+  
+  void displayBG() {
+    super.display();
   }
 
 }
