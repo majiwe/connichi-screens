@@ -4,9 +4,8 @@ class Blende extends AnimatedObject{
   
   Blende(int x , int y, int w, int h){
     super(x,y,w,h);
-    this.maskWidth = 1920;
-    this.maskHeight = 0;
-    this.initMask("curtain");
+    this.maskWidth = w;
+    this.maskHeight = h;
     mask = createGraphics(this.width, this.height);
     
   }
@@ -48,7 +47,9 @@ class Blende extends AnimatedObject{
   }
 
   Ani[] blendTypeCurtain(float dur, float offset, String direction) {
-      String propertylist = (direction == "in") ? ("maskY:0,maskHeight:"+SCREEN_HEIGHT) : ("maskY:"+(SCREEN_HEIGHT/2)+",maskHeight:0");
+      String propertylist = (direction == "in") ? ("maskY:0,maskHeight:"+this.height) : ("maskY:"+(this.height/2)+",maskHeight:0");
+      return super.setAnimation(dur, offset, propertylist, Ani.QUINT_IN);
+  }
       return super.setAnimation(dur, offset, propertylist, Ani.QUINT_IN);
   }
 }
