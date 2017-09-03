@@ -83,6 +83,7 @@ void initTeaserAnimation (String blendType) {
      //Step - Move In   
      teaserSeq.beginStep();
        //Fade Blende in
+       
        teaserSeq.add(blende.setAnimation(blendType,FADE_DUR,0.0,"in"));
        
        teaserSeq.add(vLayer.setAnimation(ANIMATION_DUR, FADE_DUR, "x:960",Ani.LINEAR));
@@ -213,7 +214,7 @@ void initTeaserText() {
       teaserHeadline = new AnimatedText("Teaserheadline", PrimaryFont, 110, defaultColor, 100,150, LEFT, CENTER);
       teaserHeadline.initAnimation(LEFT);
       
-      teaserTime = new AnimatedText("11:30", PrimaryFont, 100, defaultColor, 394, 794, CENTER,CENTER);
+      teaserTime = new AnimatedText("11:30", PrimaryFont, 100, defaultColor, 410, 800, CENTER,CENTER);
       teaserTime.initAnimation(BOTTOM);
       
       teaserDay = new AnimatedText("Freitag", PrimaryFont, 60, defaultColor, 160, 710, RIGHT, TOP);
@@ -247,8 +248,6 @@ void setup() {
   size(1920,1080);
   surface.setResizable(true);
   smooth(2);
-  //frameRate(25);
-  
   //fullScreen(1); 
   
   // Init AnimationClasses
@@ -259,7 +258,7 @@ void setup() {
   defaultColor = color(0,0,0);
    
   //set Font
-  PrimaryFont = createFont(dataPath("assets/fonts/Roboto-Black.ttf"),80);
+  PrimaryFont = createFont(dataPath("assets/fonts/FTY SPEEDY CASUAL NCV.ttf"),80);
     
   //setup a default Background
   backgroundImage = loadImage(dataPath("default/background.jpg"));
@@ -274,7 +273,8 @@ void setup() {
   errorPage = loadImage(dataPath("default/error.jpg"));
   
   //init Blende
-  blende = new Blende(0,0,SCREEN_WIDTH, SCREEN_HEIGHT);
+  blende = new Blende(stage,0,0,SCREEN_WIDTH, SCREEN_HEIGHT);
+  blende.setLogo(logoImage);
   
     
   // set up the videoLayer
@@ -302,10 +302,12 @@ void setup() {
   errorLog = createWriter(dataPath("log/errorlog.txt"));
 }
 void exit() {
+  super.exit();
+  
 }
 
 void draw() {
-   println(frameRate);
+
    //background(backgroundImage); //default Background
 
   switch(playType) {
@@ -361,7 +363,7 @@ void playMovie(Movie movie, boolean isTeaser){
     movie.read();
   }
    debugLog("drawTeaser");
-  if(isTeaser){ drawTeaser(movie); }
+  if(isTeaser){ displayTeaser(movie); }
   else { 
     set(0,0,movie); 
     g.removeCache(movie);
@@ -370,6 +372,9 @@ void playMovie(Movie movie, boolean isTeaser){
   
   blende.display(backgroundImage);
   debugLog("after backgroundImage");
+  textSize(24);
+  fill(255);
+  text("Framerate: "+frameRate, 50,50);
 }
 
 
@@ -416,12 +421,22 @@ void fetchTeaserData(String file) {
 
 void loadTeaser(int index) {
      aktTeaser = teasers.get(index);
-    /* if ((aktTeaser.time != "off") && (parseInt(aktTeaser.time) < parseInt(aktTime))){
-       
-       return;
-     } */ 
+
+   /*  if (aktTeaser.time != "off"){ 
+       int teaserTime = (parseInt((aktTeaser.time).replace(":","")));
+       println("TeaserTime: "+teaserTime+" day:"+day());
+       String aktTime = ""+hour()+minute();
+     
+       if (teaserTime < parseInt(aktTime)){
+         playLog("Skip T_"+(teaserIndex+1)+": "+aktTeaser.day+" "+aktTeaser.time+" - ‘"+aktTeaser.headline+"‘");
+         
+         teaserIndex++;
+         loadTeaser(teaserIndex);
+         return; 
+       }
+     }  */
      aktColor = myColors.get(aktTeaser.type);
-     playLog("Teaser "+(teaserIndex+1)+": "+aktTeaser.day+" "+aktTeaser.time+" - ‘"+aktTeaser.headline+"‘ was played");
+     playLog("Play T_"+(teaserIndex+1)+": "+aktTeaser.day+" "+aktTeaser.time+" - ‘"+aktTeaser.headline+"‘");
      
      this.updateTeaser();
      this.resetTeaser();
@@ -453,24 +468,34 @@ void updateTeaser() {
       leftOrnament.setColor(aktColor.elements);
       rightOrnament.setColor(aktColor.elements);
       
-      vLayer.setColor(aktColor.highlight);
-      
-      teaserReady = true;    
+      vLayer.setBorder(aktColor.background, 10);
+      vLayer.setColor(aktColor.highlight);  
+      teaserReady = true;
 }
 
 void unloadTeaser() {
     teaser.stop();
     teaser = null;
+    
+    bigOrnament = null;
+    leftOrnament = null;
+    rightOrnament = null;
+    
+    teaserLocation = null;
+    teaserTime = null;
+    teaserHeadline = null;
+    teaserDay = null;
+    
     teaserReady = false;
 }
 
 void resetTeaser(){
   teaser.jump(0);
   teaser.volume(0);
+    
 }
 
-void drawTeaser(Movie movie){
-
+void displayTeaser(Movie movie){
  if(!isPlaying){ teaserSeq.start(); isPlaying = true;}
    
   clear();
