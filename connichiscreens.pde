@@ -259,7 +259,7 @@ void setup() {
   defaultColor = color(0,0,0);
    
   //set Font
-  PrimaryFont = createFont(dataPath("assets/fonts/FTY SPEEDY CASUAL NCV.ttf"),80);
+  PrimaryFont = createFont(dataPath("assets/fonts/Roboto-Black.ttf"),80);
     
   //setup a default Background
   backgroundImage = loadImage(dataPath("default/background.jpg"));
