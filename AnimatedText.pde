@@ -9,6 +9,7 @@ class AnimatedText extends AnimatedObject {
   int aniDirection = -1;
   float offPos_X, offPos_Y;
   float endPos_X, endPos_Y;
+  float offsetX, offsetY;
   PFont font;
   
  //public static final int NONE = 0, REVEAL_UP = 1, REVEAL_DOWN = 2, REVEAL_LEFT = 3, REVEAL_RIGHT = 4;
@@ -47,17 +48,26 @@ class AnimatedText extends AnimatedObject {
     this.textHeight = (this.lines > 1)?  (this.lines * ( textAscent() + textDescent())):(textAscent() +textDescent());
     
     win = createGraphics((int)this.textWidth, (int)this.textHeight);
-
-    this.endPos_X = ((this.alignX == RIGHT)?(this.textWidth):((this.alignX == CENTER)?(0.5*this.textWidth):0));
-    this.endPos_Y = ((this.alignY == BOTTOM)?(this.textHeight):((this.alignY == CENTER)?(this.textHeight*0.5):0));
     
+   this.endPos_X = 0; this.offsetX = 0; this.endPos_Y = 0; this.offsetY = 0;
+   if(this.alignX == RIGHT) {
+     this.endPos_X = this.textWidth; this.offsetX = -this.textWidth;
+   } else if (this.alignX == CENTER) {
+     this.endPos_X = (this.textWidth*0.5); this.offsetX = (-this.textWidth*0.5);
+   }
+   
+   if(this.alignY == BOTTOM) {
+     this.endPos_Y = this.textHeight; this.offsetY = -this.textHeight;
+   } else if (this.alignX == CENTER) {
+     this.endPos_Y = (this.textHeight*0.5); this.offsetY = (-this.textHeight*0.5);
+   }
+ 
     if(this.aniDirection < 0 ){
         this.fontX = this.endPos_X;
         this.fontY = this.endPos_Y;   
     } else {
       this.setOffsetPosition();
     }
-     
   }
   float textLead() {
     return g.textLeading;
@@ -108,7 +118,7 @@ class AnimatedText extends AnimatedObject {
       win.textLeading((this.fontSize*1.1));
       win.text(this.text, this.fontX, this.fontY);
       win.endDraw();
-      image(win, this.x, this.y);
+      image(win, (this.x+this.offsetX), (this.y+this.offsetY));
       g.removeCache(win);
     }
     catch(NullPointerException e){

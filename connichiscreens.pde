@@ -211,16 +211,16 @@ void initColorSet() {
 *************************************************************************************/  
 void initTeaserText() {
 
-      teaserHeadline = new AnimatedText("Teaserheadline", PrimaryFont, 110, defaultColor, 100,150, LEFT, CENTER);
+      teaserHeadline = new AnimatedText("Teaserheadline", PrimaryFont, 100, defaultColor, 100,450, LEFT, BOTTOM);
       teaserHeadline.initAnimation(LEFT);
       
-      teaserTime = new AnimatedText("11:30", PrimaryFont, 100, defaultColor, 410, 800, CENTER,CENTER);
+      teaserTime = new AnimatedText("11:30", PrimaryFont, 100, defaultColor, 500, 850, CENTER,CENTER);
       teaserTime.initAnimation(BOTTOM);
       
-      teaserDay = new AnimatedText("Freitag", PrimaryFont, 60, defaultColor, 160, 710, RIGHT, TOP);
+      teaserDay = new AnimatedText("Freitag", PrimaryFont, 60, defaultColor, 380, 720, RIGHT, TOP);
       teaserDay.initAnimation(RIGHT);
       
-      teaserLocation = new AnimatedText("Gesellschaftsaal", PrimaryFont, 65, defaultColor, 610, 925, LEFT, BOTTOM);
+      teaserLocation = new AnimatedText("Gesellschaftsaal", PrimaryFont, 65, defaultColor, 615, 1000, LEFT, BOTTOM);
       teaserLocation.initAnimation(LEFT);  
 }
 
