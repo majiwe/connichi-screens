@@ -401,40 +401,23 @@ void fetchTeaserData(String file) {
   
   teaserLength = table.getRowCount(); 
   Teaser tempTeaser;
-  //String[] fields = { "day", "time", "location", "headline", "type", "filename"};
+  String[] fields = { "day", "time", "location", "headline", "type", "filename"};
 
   for (TableRow row : table.rows()) {
-    tempTeaser = new Teaser();
-   /* for(String field : fields) {
-      tempTeaser[""+field] = row.getSring(""+field);
-    }*/
-    
-    tempTeaser.day = row.getString("day");
-    tempTeaser.time = row.getString("time");
-    tempTeaser.location = row.getString("location");
-    tempTeaser.headline = row.getString("headline");
-    tempTeaser.type = row.getString("type");
-    tempTeaser.filePath = row.getString("filename");
+    tempTeaser = new Teaser(row, fields);
     teasers.add(tempTeaser);
   }     
 }
 
 void loadTeaser(int index) {
-     aktTeaser = teasers.get(index);
-
-   /*  if (aktTeaser.time != "off"){ 
-       int teaserTime = (parseInt((aktTeaser.time).replace(":","")));
-       println("TeaserTime: "+teaserTime+" day:"+day());
-       String aktTime = ""+hour()+minute();
-     
-       if (teaserTime < parseInt(aktTime)){
-         playLog("Skip T_"+(teaserIndex+1)+": "+aktTeaser.day+" "+aktTeaser.time+" - ‘"+aktTeaser.headline+"‘");
-         
-         teaserIndex++;
-         loadTeaser(teaserIndex);
-         return; 
-       }
-     }  */
+     this.aktTeaser = teasers.get(index);
+      println (this.aktTeaser.getClass());
+     if(!aktTeaser.shouldPlay()) {
+       teaserIndex++;
+       loadTeaser(teaserIndex);
+       playLog("Skip T_"+(teaserIndex+1)+": "+this.day+" "+this.time+" - ‘"+this.headline+"‘");
+       return;
+     }
      aktColor = myColors.get(aktTeaser.type);
      playLog("Play T_"+(teaserIndex+1)+": "+aktTeaser.day+" "+aktTeaser.time+" - ‘"+aktTeaser.headline+"‘");
      
@@ -443,9 +426,9 @@ void loadTeaser(int index) {
 }
 
 void updateTeaser() {
-    if (teaser != null) {
+   /* if (teaser != null) {
       this.unloadTeaser();  
-    }
+    }*/
       //TeaserVideo
       teaser = new Movie(this, dataPath("teaser/"+aktTeaser.filePath+".mp4"));
       teaser.noLoop();
@@ -474,6 +457,7 @@ void updateTeaser() {
 }
 
 void unloadTeaser() {
+    
     teaser.stop();
     teaser = null;
     
