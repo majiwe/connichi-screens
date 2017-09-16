@@ -102,24 +102,32 @@ class AnimatedText extends AnimatedObject {
   void display() {
     try {
       super.display();
+      if(this.textWidth > 0 && this.textHeight > 0){
     
-      win.beginDraw();
-      win.clear();
-      win.noStroke();
-      if(debug){
-        win.fill(123,123,123);
-        win.strokeWeight(4);
-        win.stroke(255,255,255);
-        win.rect(0,0,this.textWidth, this.textHeight);
-      }
-      win.fill(this.fillColor);
-      win.textAlign(this.alignX,this.alignY);
-      win.textFont(font, this.fontSize);
-      win.textLeading((this.fontSize*1.1));
-      win.text(this.text, this.fontX, this.fontY);
-      win.endDraw();
-      image(win, (this.x+this.offsetX), (this.y+this.offsetY));
-      g.removeCache(win);
+        win.beginDraw();
+        win.clear();
+        win.noStroke();
+        if(debug){
+          win.fill(123,123,123,0.2);
+          win.strokeWeight(4);
+          win.stroke(255,255,255);
+          win.rect(0,0,this.textWidth, this.textHeight);
+        }
+        win.fill(this.fillColor);
+        win.textAlign(this.alignX,this.alignY);
+        win.textFont(font, this.fontSize);
+        win.textLeading((this.fontSize*1.1));
+        win.text(this.text, this.fontX, this.fontY);
+        win.endDraw();
+        image(win, (this.x+this.offsetX), (this.y+this.offsetY));
+        g.removeCache(win);
+        if(debug){
+          stroke(125);
+          strokeWeight(10);
+          fill(125);
+          point(this.x, this.y);
+        }
+      } 
     }
     catch(NullPointerException e){
       errorLog(e.getMessage());
