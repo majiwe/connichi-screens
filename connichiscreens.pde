@@ -274,10 +274,10 @@ void setup() {
   PrimaryFont = createFont(dataPath("assets/fonts/FTY SPEEDY CASUAL NCV.ttf"),80);
     
   //setup a default Background
-  backgroundImage = loadImage(dataPath("default/background.jpg"));
+  backgroundImage = loadImage(dataPath("default/inBetweener1.png"));
   logoImage = loadImage(dataPath("assets/images/logo_small.png"));
   stage = createImage(SCREEN_WIDTH,SCREEN_HEIGHT,RGB);
-//  image(backgroundImage,0,0); //draw it once
+  image(backgroundImage,0,0); //draw it once
   
   // init default-styling
   noStroke();
