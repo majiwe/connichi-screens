@@ -17,12 +17,7 @@ final int SCREEN_WIDTH = 1920,
           SCREEN_HEIGHT = 1080,
           Y_AXIS = 1,
           X_AXIS = 2;
-          
-final int FIRSTRUN = 0,
-          PLAYTYPE_TEASER = 1, 
-          PLAYTYPE_ANNOUNCE = 2, 
-          PLAYTYPE_ADVERT = 3;
-          
+                   
 File [] teaserFiles;
 boolean record = false; 
 boolean debug = false;
@@ -37,7 +32,7 @@ Map<String, ColorSet> myColors = new HashMap<String, ColorSet>();
 ColorSet aktColor;
 color defaultColor;
 
-int playType = FIRSTRUN;
+Mediatype playType = Mediatype.FIRSTRUN;
 int teaserLength = 0; // Total number of movies
 int teaserIndex = 0; // Initial movie to be displayed
 int startAnnouncement = 0;
@@ -314,14 +309,16 @@ void draw() {
     case FIRSTRUN:
       checkForNext = true;
       loadTeaser(teaserIndex); break;
-    case PLAYTYPE_ANNOUNCE: 
+    case ANNOUNCE: 
       showAnnouncement(headline, information);
       break;
-    case PLAYTYPE_TEASER: 
+    case TEASER: 
       if (teaserReady) { playMovie(teaser, true); }
       break;
-    case PLAYTYPE_ADVERT: 
+    case ADVERT: 
      // playMovie(advert, false); 
+      break;
+    case CLOSING:
       break;
     default:     
   }
@@ -337,12 +334,15 @@ void draw() {
 void checkNext() {
   checkForNext = false;
   if (checkAnnouncement("announcement.json")) { 
-    playType = PLAYTYPE_ANNOUNCE; 
+    playType = Mediatype.ANNOUNCE; 
     playLog("Announcement was played");    
     return;
   }
+  else if (false ) {
+      playType = Mediatype.CLOSING;
+  }
   else if (false /*playtimeAdvertise >= timerAdvertise*/ ){ 
-    playType = PLAYTYPE_ADVERT; 
+    playType = Mediatype.ADVERT; 
     playLog("Advertisment was played");  
     return;
   }
@@ -355,7 +355,7 @@ void checkNext() {
       loadTeaser(teaserIndex);
       nextTeaser = false;   
   }
-  playType = PLAYTYPE_TEASER;
+  playType = Mediatype.TEASER;
 }
 
 void playMovie(Movie movie, boolean isTeaser){
