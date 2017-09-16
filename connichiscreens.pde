@@ -27,7 +27,7 @@ boolean debug = false;
 // Parameter for TeaserList
 ArrayList<Teaser> teasers;
 Teaser aktTeaser;
-AnimatedText teaserHeadline, teaserTime, teaserDay, teaserLocation;
+AnimatedText teaserHeadline, teaserSubheadline, teaserTime, teaserDay, teaserLocation;
 AnimatedShapes leftOrnament, rightOrnament, bigOrnament;
 
 Map<String, ColorSet> myColors = new HashMap<String, ColorSet>();
@@ -85,6 +85,7 @@ void initTeaserAnimation (String blendType) {
        
        teaserSeq.add(vLayer.setAnimation(ANIMATION_DUR, FADE_DUR, "x:960",Ani.LINEAR));
        teaserSeq.add(teaserHeadline.setAnimation(ANIMATION_DUR, FADE_DUR,"fontX:"+teaserHeadline.endPos_X,Ani.QUAD_OUT));
+       teaserSeq.add(teaserSubheadline.setAnimation(ANIMATION_DUR, FADE_DUR,"fontX:"+teaserSubheadline.endPos_X,Ani.QUAD_OUT));
        
        float ornamentTime = (FADE_DUR+ANIMATION_DUR);
        teaserSeq.add(leftOrnament.setAnimation(ANIMATION_DUR, ornamentTime, "scale: 1.0", Ani.ELASTIC_OUT));
@@ -110,6 +111,7 @@ void initTeaserAnimation (String blendType) {
        
        teaserSeq.add( vLayer.setAnimation(ANIMATION_DUR, endOffset, "x:1920",Ani.LINEAR));
        teaserSeq.add(teaserHeadline.setAnimation(ANIMATION_DUR, endOffset,"fontX:"+teaserHeadline.offPos_X,Ani.QUAD_IN));
+       teaserSeq.add(teaserSubheadline.setAnimation(ANIMATION_DUR, endOffset,"fontX:"+teaserSubheadline.offPos_X,Ani.QUAD_IN));
        
        //Fade Blende Out
        teaserSeq.add(blende.setAnimation(blendType, FADE_DUR, (endOffset+ANIMATION_DUR),"out"));
@@ -210,6 +212,9 @@ void initTeaserText() {
 
       teaserHeadline = new AnimatedText("Teaserheadline", PrimaryFont, 100, defaultColor, 100,450, LEFT, BOTTOM);
       teaserHeadline.initAnimation(LEFT);
+      
+      teaserSubheadline = new AnimatedText("TeaserSubheadline", PrimaryFont, 70, defaultColor, 100,475, LEFT, TOP);
+      teaserSubheadline.initAnimation(LEFT);
       
       teaserTime = new AnimatedText("11:30", PrimaryFont, 100, defaultColor, 500, 850, CENTER,CENTER);
       teaserTime.initAnimation(BOTTOM);
@@ -401,7 +406,7 @@ void fetchTeaserData(String file) {
   
   teaserLength = table.getRowCount(); 
   Teaser tempTeaser;
-  String[] fields = { "day", "time", "location", "headline", "type", "filename"};
+  String[] fields = { "day", "time", "location", "headline", "subheadline", "type", "filename"};
 
   for (TableRow row : table.rows()) {
     tempTeaser = new Teaser(row, fields);
@@ -436,6 +441,9 @@ void updateTeaser() {
       
       teaserHeadline.setText(aktTeaser.headline);
       teaserHeadline.setColor(aktColor.primary);
+      
+      teaserSubheadline.setText(aktTeaser.subheadline);
+      teaserSubheadline.setColor(aktColor.primary);
       
       teaserTime.setText(aktTeaser.time);
       teaserTime.setColor(aktColor.primary);
@@ -497,10 +505,11 @@ void displayTeaser(Movie movie){
   
   debugLog("text");
   teaserHeadline.display();
+  teaserSubheadline.display();
   teaserDay.display();
   teaserTime.display();
   teaserLocation.display();
- debugLog("afterText");
+  debugLog("afterText");
   if(teaserSeq.isEnded()){ nextTeaser = true; isPlaying = false; checkForNext = true;}
 }
 
