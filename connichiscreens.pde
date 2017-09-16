@@ -19,7 +19,9 @@ final int SCREEN_WIDTH = 1920,
           X_AXIS = 2;
                    
 File [] teaserFiles;
-boolean record = false; 
+boolean record = false;
+boolean framerate = false;
+boolean paused = false;
 boolean debug = false;
 
 // Parameter for TeaserList
@@ -555,7 +557,16 @@ float timePassed(int timeStamp){
   return ((millis() - timeStamp)/1000);
 }  
 
-
+void keyPressed() {
+  switch (key) {
+    case 'F': framerate = !framerate; break;
+    case 'T': /*reset*/; break; //reload Teaser
+    case 'C': stop();
+    case 'P': paused = !paused; break;
+    case 'D': debug = !debug; break;
+    case 'R': record =!record; break;
+  }
+}
 /************************************************************************************
                           Generic Methods for Movies
 *************************************************************************************/     
