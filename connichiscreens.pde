@@ -19,6 +19,7 @@ final int SCREEN_WIDTH = 1920,
           X_AXIS = 2;
                    
 File [] teaserFiles;
+
 boolean record = false;
 boolean framerate = false;
 boolean paused = false;
@@ -53,10 +54,12 @@ boolean announcement = false,
         isPlaying = false,
         nextTeaser = false;       
     
-PImage backgroundImage,
-       stage,
+PImage stage,
+       bgImage,
        logoImage,
        errorPage;
+       
+ArrayList  <PImage> backgroundImage;       
        
 LogFile playLog, errorLog;
 Blende blende;
@@ -274,10 +277,13 @@ void setup() {
   PrimaryFont = createFont(dataPath("assets/fonts/FTY SPEEDY CASUAL NCV.ttf"),80);
     
   //setup a default Background
-  backgroundImage = loadImage(dataPath("default/inBetweener1.png"));
+  backgroundImage = new ArrayList<PImage>();
+  for(int i=0; i<4; i++) {
+    backgroundImage.add(loadImage(dataPath("assets/images/inBetweener/inBetweener"+(i+1)+".png")));
+  }  
   logoImage = loadImage(dataPath("assets/images/logo_small.png"));
   stage = createImage(SCREEN_WIDTH,SCREEN_HEIGHT,RGB);
-  image(backgroundImage,0,0); //draw it once
+  image(backgroundImage.get(0),0,0); //draw it once
   
   // init default-styling
   noStroke();
@@ -296,9 +302,8 @@ void setup() {
   vLayer.setupBackground(50,-50);
    
   //Set up our TeaserFiles
-  //loadFiles("teaser"); // remove
   teasers = new ArrayList<Teaser>();
-  this.fetchTeaserData("teaser.csv");
+  this.fetchTeaserList("teaser.csv");
   
   this.initColorSet();
   this.initTeaserText();
@@ -307,13 +312,9 @@ void setup() {
   blende.initMask("diagonal");
   this.initTeaserAnimation("diagonal");
   
- /* advert = new Movie(this, dataPath("werbung/video_1.mp4"));
-  advert.play();
-  advert.pause();*/
   //Write File
-  playLog = createWriter(dataPath("log/playlog.txt"));
-  errorLog = createWriter(dataPath("log/errorlog.txt"));
   playLog = new LogFile("play");
+  errorLog = new LogFile("error");
 }
 void exit() {
   super.exit();
@@ -322,7 +323,7 @@ void exit() {
 
 void draw() {
 
-   //background(backgroundImage); //default Background
+ //‚ background(backgroundImage); //default Background
 
   switch(playType) {
     case FIRSTRUN:
@@ -389,7 +390,7 @@ void playMovie(Movie movie, boolean isTeaser){
     }
     debugLog("backgroundimage");
   
-  blende.display(backgroundImage);
+  blende.display(bgImage);
   debugLog("after backgroundImage");
   showFramerate ();
 }
