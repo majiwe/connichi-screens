@@ -121,89 +121,100 @@ void initTeaserAnimation (String blendType) {
 }
 
 void initColorSet() {
-  ColorSet temp = new ColorSet();
-  
-  // default Set
-  temp.primary =  color(255, 255, 255);
-  temp.secondary = color(255 ,255, 255);
-  temp.third = color(154, 154, 154);
-  temp.background = color(37,37,37);
-  temp.highlight = color(101, 101, 101);
-  temp.elements = color(60, 60, 60);
-  myColors.put ("default", temp); 
-  
-  //guests
-  temp = new ColorSet();
-  temp.primary =  color(255, 255, 255);
-  temp.secondary = color(255 ,255, 255);
-  temp.third = color(138, 41, 138);
-  temp.background = color(39, 20, 39);
-  temp.highlight = color(130, 49, 130);
-  temp.elements = color(77, 28, 77);
-  myColors.put ("guest", temp);  
-  
-  //programm
-  temp = new ColorSet();
-  temp.primary =  color(27, 27, 27);
-  temp.secondary = color(255, 255, 255);
-  temp.third = color(143, 132, 5);
-  temp.background = color(250, 230, 10);
-  temp.highlight = color(143, 132, 5);
-  temp.elements = color(190, 175, 5);
-  myColors.put ("vortrag", temp); 
-  
-  //Showact
-  temp = new ColorSet();
-  temp.primary =  color(255, 255, 255);
-  temp.secondary = color(255, 255, 255);
-  temp.third = color(118, 38, 5);
-  temp.background = color(234, 96, 37);
-  temp.highlight = color(178, 58, 8);
-  temp.elements = color(127, 42, 6);
-  myColors.put ("showact", temp);
-  
-  //Contest
-  temp = new ColorSet();
-  temp.primary =  color(255, 255, 255);
-  temp.secondary = color(255, 255, 255);
-  temp.third = color(188, 70, 115);
-  temp.background = color(45, 3, 20);
-  temp.highlight = color(101, 8, 43);
-  temp.elements = color(188, 0, 78);
-  myColors.put ("contest", temp); 
-  
-  //Event
-  temp = new ColorSet();
-  temp.primary =  color(255, 255, 255);
-  temp.secondary = color(255, 255, 255);
-  temp.third = color(50, 80, 139);
-  temp.background = color(13, 22, 41);
-  temp.highlight = color(19, 59, 139);
-  temp.elements = color(43, 75, 139);
-  myColors.put ("event", temp); 
-  
-  //workshop
-  temp = new ColorSet();
-  temp.primary =  color(255, 255, 255);
-  temp.secondary = color(255, 255, 255);
-  temp.third = color(0, 96, 126);
-  temp.background = color(0, 50, 66);
-  temp.highlight = color(0, 89,115);
-  temp.elements = color(0, 195, 255);
-  myColors.put ("workshop", temp);
-  
-   //Booth
-  temp = new ColorSet();
-  temp.primary =  color(255, 255, 255);
-  temp.secondary = color(255, 255, 255);
-  temp.third = color(109, 174, 255);
-  temp.background = color(36, 63, 94);
-  temp.highlight = color(44, 124, 215);
-  temp.elements = color(66, 106, 155);
-  myColors.put ("booth", temp); 
-  
-}
 
+  //default
+  myColors.put ("default", new ColorSet(
+      color(255, 255, 255),
+      color(255 ,255, 255),
+      color(154, 154, 154),
+      color(37,37,37),
+      color(101, 101, 101),
+      color(60, 60, 60)
+  )); 
+
+   //guests
+   myColors.put ("guest", new ColorSet(
+      color(255, 255, 255),
+      color(255 ,255, 255),
+      color(138, 41, 138),
+      color(39, 20, 39),
+      color(130, 40, 119),
+      color(77, 28, 77)
+    ));
+    
+  //programm
+  myColors.put ("programm", new ColorSet(
+      color(255, 255, 255),
+      color(255 ,255, 255),
+      color(138, 41, 138),
+      color(39, 20, 39),
+      color(130, 40, 119),
+      color(77, 28, 77)
+    ));
+    
+ myColors.put ("guest", new ColorSet(
+     color(27, 27, 27),
+     color(255, 255, 255),
+     color(143, 132, 5),
+     color(250, 230, 10),
+     color(241, 188, 64),
+     color(190, 175, 5)
+  ));
+  
+  myColors.put ("showact", new ColorSet(
+     color(255, 255, 255),
+     color(255, 255, 255),
+     color(118, 38, 5),
+     color(234, 96, 37),
+     color(225, 130, 48),
+     color(127, 42, 6)
+  ));
+  
+  myColors.put ("contest", new ColorSet(
+     color(255, 255, 255),
+     color(255, 255, 255),
+     color(188, 70, 115),
+     color(45, 3, 20),
+     color(101, 8, 43),
+     color(188, 0, 78)
+  ));
+  
+  myColors.put ("event", new ColorSet(
+     color(255, 255, 255),
+     color(255, 255, 255),
+     color(50, 80, 139),
+     color(13, 22, 41),
+     color(19, 59, 139),
+     color(43, 75, 139)
+  ));
+  
+  myColors.put ("workshop", new ColorSet(
+     color(255, 255, 255),
+     color(255, 255, 255),
+     color(0, 96, 126),
+     color(13, 29, 39),
+     color(77, 169,227),
+     color(0, 195, 255)
+  ));
+  
+  myColors.put ("vortrag", new ColorSet(
+     color(255, 255, 255),
+     color(255, 255, 255),
+     color(0, 96, 126),
+     color(0, 50, 66),
+     color(145, 187,66),
+     color(0, 195, 255)
+  ));
+  
+  myColors.put ("booth", new ColorSet(
+     color(255, 255, 255),
+     color(255, 255, 255),
+     color(109, 174, 255),
+     color(36, 63, 94),
+     color(42, 99, 171),
+     color(66, 106, 155)
+  )); 
+}
 
 /************************************************************************************
                           init Objects to Display
