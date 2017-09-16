@@ -130,7 +130,7 @@ class AnimatedText extends AnimatedObject {
       } 
     }
     catch(NullPointerException e){
-      errorLog(e.getMessage());
+      errorLog.write(e.getMessage());
     }
   }
   

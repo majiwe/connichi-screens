@@ -58,7 +58,7 @@ PImage backgroundImage,
        logoImage,
        errorPage;
        
-PrintWriter playLog = null, errorLog = null;
+LogFile playLog, errorLog;
 Blende blende;
 String headline, information;
 
@@ -313,6 +313,7 @@ void setup() {
   //Write File
   playLog = createWriter(dataPath("log/playlog.txt"));
   errorLog = createWriter(dataPath("log/errorlog.txt"));
+  playLog = new LogFile("play");
 }
 void exit() {
   super.exit();
@@ -353,7 +354,7 @@ void checkNext() {
   checkForNext = false;
   if (checkAnnouncement("announcement.json")) { 
     playType = Mediatype.ANNOUNCE; 
-    playLog("Announcement was played");    
+    playLog.write("Announcement was played");    
     return;
   }
   else if (false ) {
@@ -361,7 +362,7 @@ void checkNext() {
   }
   else if (false /*playtimeAdvertise >= timerAdvertise*/ ){ 
     playType = Mediatype.ADVERT; 
-    playLog("Advertisment was played");  
+    playLog.write("Advertisment was played");  
     return;
   }
   else if (nextTeaser) {
@@ -427,24 +428,24 @@ void fetchTeaserList(String file) {
 
 void loadTeaser(int index) {
      this.aktTeaser = teasers.get(index);
-      println (this.aktTeaser.getClass());
+     
      if(!aktTeaser.shouldPlay()) {
+       playLog.write("Skip T_"+(teaserIndex+1)+": "+this.aktTeaser.day+" "+this.aktTeaser.time+" - ‘"+this.aktTeaser.headline+"‘");
        teaserIndex++;
        loadTeaser(teaserIndex);
-       playLog("Skip T_"+(teaserIndex+1)+": "+this.day+" "+this.time+" - ‘"+this.headline+"‘");
+       
        return;
      }
+     
      aktColor = myColors.get(aktTeaser.type);
-     playLog("Play T_"+(teaserIndex+1)+": "+aktTeaser.day+" "+aktTeaser.time+" - ‘"+aktTeaser.headline+"‘");
+     playLog.write("Play T_"+(teaserIndex+1)+": "+this.aktTeaser.day+" "+this.aktTeaser.time+" - ‘"+this.aktTeaser.headline+"‘");
      
      this.updateTeaser();
      this.resetTeaser();
 }
 
 void updateTeaser() {
-   /* if (teaser != null) {
-      this.unloadTeaser();  
-    }*/
+      bgImage = backgroundImage.get(int(random(4)));
       //TeaserVideo
       teaser = new Movie(this, dataPath("teaser/"+aktTeaser.filePath+".mp4"));
       teaser.noLoop();
@@ -527,16 +528,6 @@ void displayTeaser(Movie movie){
 /************************************************************************************
                           Write Log
 *************************************************************************************/   
-
-void playLog(String data){
-  playLog.println("Playlog - Cicle ("+cicle+"): "+data);
-  playLog.flush(); 
-}
-
-void errorLog(String data){
-  errorLog.println("Error: "+data);
-  errorLog.flush(); 
-}
 
 void debugLog(String milestone){
   if(debug) {
