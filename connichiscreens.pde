@@ -412,7 +412,7 @@ void loadFiles (String folderName){
 /************************************************************************************
                           Teasers 
 *************************************************************************************/  
-void fetchTeaserData(String file) {
+void fetchTeaserList(String file) {
   table = loadTable(dataPath(file), "header");
   
   teaserLength = table.getRowCount(); 
