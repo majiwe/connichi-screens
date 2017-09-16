@@ -374,9 +374,7 @@ void playMovie(Movie movie, boolean isTeaser){
   
   blende.display(backgroundImage);
   debugLog("after backgroundImage");
-  textSize(24);
-  fill(255);
-  text("Framerate: "+frameRate, 50,50);
+  showFramerate ();
 }
 
 
@@ -556,6 +554,13 @@ void showAnnouncement(String headline, String information){
 float timePassed(int timeStamp){
   return ((millis() - timeStamp)/1000);
 }  
+void showFramerate(){
+  if (framerate){
+    textSize(24);
+    fill(255);
+    text("Framerate: "+frameRate, 50,50);
+  }  
+}
 
 void keyPressed() {
   switch (key) {
