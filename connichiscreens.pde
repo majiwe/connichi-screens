@@ -517,16 +517,6 @@ void displayTeaser(Movie movie){
 }
 
 /************************************************************************************
-                          Write Log
-*************************************************************************************/   
-
-void debugLog(String milestone){
-  if(debug) {
-    println("before "+milestone+" "+millis());
-  }
-}
-
-/************************************************************************************
                           PSA Public Service Announcement
 *************************************************************************************/   
 
@@ -553,29 +543,7 @@ void showAnnouncement(String headline, String information){
   if(timePassed(startAnnouncement) >= ANNOUNCEMENT_DUR){isPlaying = false; checkForNext = true;}
 }
 
-float timePassed(int timeStamp){
-  return ((millis() - timeStamp)/1000);
-}  
 
-void showFramerate(){
-  if (framerate){
-    textSize(24);
-    fill(125);
-
-    text("Framerate: "+frameRate, 50,50);
-  }  
-}
-
-void keyPressed() {
-  switch (key) {
-    case 'F': framerate = !framerate; break;
-    case 'T': /*reset*/; break; //reload Teaser
-    case 'X': this.exit();
-    case 'P': if(looping){ noLoop(); } else { loop(); } break;
-    case 'D': debug = !debug; break;
-    case 'R': record =!record; break;
-  }
-}
 /************************************************************************************
                           Generic Methods for Movies
 *************************************************************************************/     
@@ -584,7 +552,6 @@ void movieEvent(Movie myMovies) {
   //myMovies.read();
   //redraw();
 }
-
 
 /************************************************************************************
                           Generic Methods for Movies
@@ -608,5 +575,39 @@ void setGradiant (int x, int y, float w, float h, color c1, color c2, int axis) 
       stroke(c);
       line(i, y, i, y+h);
     }
+  }
+}
+
+float timePassed(int timeStamp){
+  return ((millis() - timeStamp)/1000);
+}  
+
+void showFramerate(){
+  if (framerate){
+    textSize(24);
+    fill(125);
+    text("Framerate: "+frameRate, 50,50);
+  }  
+}
+
+void keyPressed() {
+  switch (key) {
+    case 'F': framerate = !framerate; break;
+    case 'T': /*reset*/; break; //reload Teaser
+    case 'X': this.exit();
+    case 'P': if(looping){ noLoop(); } else { loop(); } break;
+    case 'D': debug = !debug; break;
+    case 'R': record =!record; break;
+  }
+}
+
+
+/************************************************************************************
+                          Write Log
+*************************************************************************************/   
+
+void debugLog(String milestone){
+  if(debug) {
+    println("before "+milestone+" "+millis());
   }
 }
