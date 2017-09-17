@@ -26,8 +26,9 @@ boolean paused = false;
 boolean debug = false;
 
 // Parameter for TeaserList
-ArrayList<Teaser> teasers;
-Teaser aktTeaser;
+TeaserList teaserList;
+Teaser currentTeaser;
+
 AnimatedText teaserHeadline, teaserSubheadline, teaserTime, teaserDay, teaserLocation;
 AnimatedShapes leftOrnament, rightOrnament, bigOrnament;
 
@@ -46,8 +47,6 @@ Movie teaser, advert;
 AniSequence teaserSeq;
 Videolayer vLayer;
 
-Table table;
-
 boolean announcement = false,
         teaserReady = false,
         checkForNext = false,
@@ -63,6 +62,7 @@ ArrayList<PImage> backgroundImage;
        
 LogFile playLog, errorLog;
 Blende blende;
+
 String headline, information;
 
 /*void settings() {
@@ -295,7 +295,7 @@ void setup() {
   
   //init Blende
   blende = new Blende(stage,0,0,SCREEN_WIDTH, SCREEN_HEIGHT);
-  blende.setLogo(logoImage);
+ // blende.setLogo(logoImage);
   
     
   // set up the videoLayer
@@ -304,8 +304,7 @@ void setup() {
   vLayer.setupBackground(50,-50);
    
   //Set up our TeaserFiles
-  teasers = new ArrayList<Teaser>();
-  this.fetchTeaserList("teaser.csv");
+  teaserList = new TeaserList("teaser.csv");
   
   this.initColorSet();
   this.initTeaserText();
@@ -370,7 +369,7 @@ void checkNext() {
     return;
   }
   else if (nextTeaser) {
-    if (++teaserIndex >= teaserLength){
+    if (++teaserIndex >= teaserList.length){
         teaserIndex = 0;
         cicle++;
       }
@@ -417,32 +416,20 @@ void loadFiles (String folderName){
 /************************************************************************************
                           Teasers 
 *************************************************************************************/  
-void fetchTeaserList(String file) {
-  table = loadTable(dataPath(file), "header");
-  
-  teaserLength = table.getRowCount(); 
-  Teaser tempTeaser;
-  String[] fields = { "day", "time", "location", "headline", "subheadline", "type", "filename"};
-
-  for (TableRow row : table.rows()) {
-    tempTeaser = new Teaser(row, fields);
-    teasers.add(tempTeaser);
-  }     
-}
 
 void loadTeaser(int index) {
-     this.aktTeaser = teasers.get(index);
+     this.currentTeaser = teaserList.get(index);
      
-     if(!aktTeaser.shouldPlay()) {
-       playLog.write("Skip T_"+(teaserIndex+1)+": "+this.aktTeaser.day+" "+this.aktTeaser.time+" - ‘"+this.aktTeaser.headline+"‘");
+     if(!currentTeaser.shouldPlay()) {
+       playLog.write("Skip T_"+(teaserIndex+1)+": "+this.currentTeaser.day+" "+this.currentTeaser.time+" - ‘"+this.currentTeaser.headline+"‘");
        teaserIndex++;
        loadTeaser(teaserIndex);
        
        return;
      }
      
-     aktColor = myColors.get(aktTeaser.type);
-     playLog.write("Play T_"+(teaserIndex+1)+": "+this.aktTeaser.day+" "+this.aktTeaser.time+" - ‘"+this.aktTeaser.headline+"‘");
+     aktColor = myColors.get(currentTeaser.type);
+     playLog.write("Play T_"+(teaserIndex+1)+": "+this.currentTeaser.day+" "+this.currentTeaser.time+" - ‘"+this.currentTeaser.headline+"‘");
      
      this.updateTeaser();
      this.resetTeaser();
@@ -451,23 +438,23 @@ void loadTeaser(int index) {
 void updateTeaser() {
       bgImage = backgroundImage.get(int(random(4)));
       //TeaserVideo
-      teaser = new Movie(this, dataPath("teaser/"+aktTeaser.filePath+".mp4"));
+      teaser = new Movie(this, dataPath("teaser/"+currentTeaser.filePath+".mp4"));
       teaser.noLoop();
       teaser.play();
       
-      teaserHeadline.setText(aktTeaser.headline);
+      teaserHeadline.setText(currentTeaser.headline);
       teaserHeadline.setColor(aktColor.primary);
       
-      teaserSubheadline.setText(aktTeaser.subheadline);
+      teaserSubheadline.setText(currentTeaser.subheadline);
       teaserSubheadline.setColor(aktColor.primary);
       
-      teaserTime.setText(aktTeaser.time);
+      teaserTime.setText(currentTeaser.time);
       teaserTime.setColor(aktColor.primary);
       
-      teaserDay.setText(aktTeaser.day);
+      teaserDay.setText(currentTeaser.day);
       teaserDay.setColor(aktColor.primary);
       
-      teaserLocation.setText(aktTeaser.location);
+      teaserLocation.setText(currentTeaser.location);
       teaserLocation.setColor(aktColor.third);
       
       color newColor = (aktColor.highlight & 0xffffff) | (25 << 24);
@@ -573,7 +560,8 @@ float timePassed(int timeStamp){
 void showFramerate(){
   if (framerate){
     textSize(24);
-    fill(255);
+    fill(125);
+
     text("Framerate: "+frameRate, 50,50);
   }  
 }
