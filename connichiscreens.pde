@@ -570,8 +570,8 @@ void keyPressed() {
   switch (key) {
     case 'F': framerate = !framerate; break;
     case 'T': /*reset*/; break; //reload Teaser
-    case 'E': this.exit();
-    case 'P': paused = !paused; break;
+    case 'X': this.exit();
+    case 'P': if(looping){ noLoop(); } else { loop(); } break;
     case 'D': debug = !debug; break;
     case 'R': record =!record; break;
   }
