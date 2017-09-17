@@ -5,6 +5,7 @@ application.linux64
 application.windows32
 application.windows64
 application.macosx
+application.macosx64
 data/teaser/*
 data/werbung/*
 Data/assets/fonts/*
