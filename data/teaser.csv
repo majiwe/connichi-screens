@@ -1,110 +1,115 @@
-day,time,location,headline,type,filename
-Freitag,14:15,Gesellschaftssaal,Figure Collecting,workshop,02_motion
-Freitag,14:15,Kolonaden 4+5,Facebook &_Instagramm_für Cosplayer,workshop,02_motion
-Freitag,14:30,Autogramm 1,Cosplayer,guest,02_motion
-Freitag,14:30,Kolonaden 6,Bewerben_beim Verlag_für Zeichner & Autoren,vortrag,02_motion
-Freitag,15:00,Festsaal,Omoshiro,showact,02_motion
-Freitag,15:00,Autogramm 2,Iso Mitsuo,guest,02_motion
-Freitag,15:45,Kolonaden 4+5,Das Cosplay-Perücken 1*1,workshop,02_motion
-Freitag,15:45,Gesellschaftssaal,25 Jahre_Sailor Moon,vortrag,03_motion_1
-Freitag,16:00,Kolonaden 6,Synchron-Workshop,workshop,09_motion_1
-Freitag,16:00,Autogramm 1,Gainax,guest,02_motion
-Freitag,16:15,Festsaal,Chii Sakurabi_Konzert,guest,02_motion
-Freitag,16:15,Blauer Saal,Shinji Show,showact,02_motion
-Freitag,17:00,Gesellschaftssaal,AMV-Workshop,workshop,02_motion
-Freitag,17:00,Autogramm 2,AoT-Synchronsprecher,guest,02_motion
-Freitag,17:00,Festsaal,Cosplay Wettbewerb,contest,02_motion
-Freitag,17:15,Kolonaden 4+5,Nähen für Anfänger,workshop,02_motion
-Freitag,17:30,Blauer Saal,One Piece Gold,default,02_motion
-Freitag,17:30,Autogramm 1,Ulla Wagner,guest,02_motion
-Freitag,18:30,Kolonaden 6,Klassische Animationen_in 2D,workshop,02_motion
-Freitag,18:30,Autogramm 2,Mardelas,guest,02_motion
-Freitag,18:45,Kolonaden 4+5,Cosplay:_Alles was fehlt ist Farbe,workshop,02_motion
-Freitag,19:00,Gesellschaftssaal,Character Design,workshop,02_motion
-Freitag,19:00,Autogramm 1,Chii Sakurabi,guest,02_motion
-Freitag,19:30,Festsaal,Karasu,guest,02_motion
-Freitag,19:45,Blauer Saal,Ikimasho,showact,02_motion
-Freitag,20:00,Kolonaden 6,Digitale Animationen_mit 'Open Toonz',workshop,02_motion
-Freitag,20:00,Autogramm 2,Rooster Teeth,guest,02_motion
-Freitag,20:15,Kolonaden 4+5,Crossplay 1*1_for Girls,workshop,02_motion
-Freitag,20:30,Festsaal,Cosplay Contest_Siegerehrung,contest,02_motion
-Freitag,20:45,Außenbereich,Matsuri Feuerwerk,event,02_motion
-Freitag,21:00,Festsaal,Cosplay Video Contest,contest,02_motion
-Freitag,21:30,Festsaal,AMV Nacht,event,02_motion
-Freitag,21:15,Blauer Saal,Kaneta Rena_Workshop,guest,02_motion
-Freitag,21:15,Gesellschaftssaal,Cosplay_für Anfänger,workshop,02_motion
-Freitag,22:00,Kolonaden 4+5,Otaku Quiz,default,06_motion_1
-Freitag,22:00,Kolonaden 6,Von der Fanfiction_zur Lustgrotte,vortrag,06_motion_1
-Samstag,10:15,Kolonaden 6,Hintergründe zeichnen:_Die 1-Punkt bis 3-Punkt_Perspektive,workshop,02_motion
-Samstag,10:30,Gesellschaftssaal,Sound Recording_for Cosplay Acts,workshop,02_motion
-Samstag,10:30,Kolonaden 4+5,Foamsmithing: Rüstungen & Probs_aus Foam,workshop,02_motion
-Samstag,10:45,Autogramm 1,Karasu,guest,02_motion
-Samstag,11:00,Festsaal,European Cosplay Gathering,contest,02_motion
-Samstag,11:45,Kolonaden 6,"This is Heavy Metal,_Baby",workshop,02_motion
-Samstag,12:00,Gesellschaftssaal,Sailor Moon Germany,guest,02_motion
-Samstag,12:00,Kolonaden 4+5,Der professionelle Auftritt_für Commissioner_& Künstler,workshop,02_motion
-Samstag,12:00,Autogramm 1,Rooster Teeth,guest,02_motion
-Samstag,12:15,Blauer Saal,Ongaku no Kara,showact,02_motion
-Samstag,12:15,Autogramm 2,Chii Sakurabi_Q&A,guest,02_motion
-Samstag,13:15,Festsaal,Shiro,showact,17_motion
-Samstag,13:15,Kolonaden 6,Petticoats & Reifröcke,workshop,02_motion
-Samstag,13:15,Autogramm 2,Chii Sakurabi,guest,02_motion
-Samstag,13:30,Gesellschaftssaal,Cosplay 30+,vortrag,05_motion_1
-Samstag,13:30,Kolonaden 4+5,Attack on Titan,guest,02_motion
-Samstag,13:30,Autogramm 1,Ulla Wagner,guest,05_motion_1
-Samstag,13:45,Blauer Saal,Para Para Connection,showact,02_motion
-Samstag,14:15,Festsaal,Daijoubu,showact,02_motion
-Samstag,14:45,Kolonaden 6,Synchron-Workshop,workshop,09_motion_1
-Samstag,14:45,Autogramm 1,Attack on Titan,guest,02_motion
-Samstag,15:00,Gesellschaftssaal,Gainax,guest,02_motion
-Samstag,15:00,Kolonaden 4+5,Schreibworkshop:_Raiders of the_Lost Plot,workshop,02_motion
-Samstag,15:30,Blauer Saal,Karasu,guest,02_motion
-Samstag,15:30,Autogramm 2,Iso Mitsuo,guest,02_motion
-Samstag,16:00,Festsaal,Shinji Schneider,showact,02_motion
-Samstag,16:00,Autogramm 1,Gainax,guest,02_motion
-Samstag,16:30,Blauer Saal,Poetry Slam,contest,02_motion
-Samstag,16:30,Gesellschaftssaal,Selbstorganisation_für Cosplayer,workshop,02_motion
-Samstag,17:00,Kolonaden 4+5,"Kostüm 'Weathering' & Bemalung",workshop,02_motion
-Samstag,17:30,Festsaal,Kira Kira Hikaru,showact,02_motion
-Samstag,17:30,Autogramm 1,Cosplayer,guest,02_motion
-Samstag,18:00,Gesellschaftssaal,Cosplay als Business - Q&A,vortrag,09_motion_1
-Samstag,18:15,Kolonaden 6, Kaneta Rena_Schminken,guest,09_motion_1
-Samstag,18:30,Kolonaden 4+5,KaKAO - Kann man das trinken?,vortrag,09_motion_1
-Samstag,19:15,Kolonaden 4+5,KaKAO Karten_Workshop_zeichnen & basteln erlaubt,workshop,09_motion_1
-Samstag,19:15,Blauer Saal,Einführung in den_japanischen Humor,vortrag,07_motion_1
-Samstag,19:30,Gesellschaftssaal,Schnittmuster-Basiswissen,vortrag,04_motion_1
-Samstag,19:45,Festsaal, ECG Siegerehrung,contest,09_motion_1
-Samstag,19:45,Kolonaden 6,Mit Make-Up ist_Mann hübscher!,workshop,09_motion_1
-Samstag,20:30,Festsaal,Mardelas_Konzert,guest,10_motion_1
-Samstag,20:45,Außenbereich,Matsuri Feuerwerk,event,02_motion
-Samstag,20:45,Kolonaden 4+5,Plushie nähen_leicht gemacht,vortrag,10_motion_1
-Samstag,21:00,Blauer Saal,Bring & Auction,default,10_motion_1
-Samstag,21:30,Gesellschaftssaal,Mardelas_Signierstunde,guest,10_motion_1
-Samstag,22:00,Festsaal,AMV Wettbewerb,contest,09_motion_1
-Samstag,22:30,Kolonaden 6,Ab 18 Synchron-Workshop,workshop,09_motion_1
-Sonntag,10:15,Gesellschaftssaal,Bild & Lichtgestaltung,workshop,09_motion_1
-Sonntag,10:15,Kolonaden 4+5,Kaneta Rena_Workshop,guest,16_motion_1
-Sonntag,10:15,Kolonaden 6,Reisen in Japan,vortrag,16_motion_1
-Sonntag,10:30,Autogramm 1,Ulla Wagner,guest,16_motion_1
-Sonntag,11:00,Festsaal,WCS - World Cosplay Summit,contest,16_motion_1
-Sonntag,11:00,Autogramm 2,Rooster Teeth,guest,16_motion_1
-Sonntag,11:15,Blauer Saal,Die Yamasakis,showact,16_motion_1
-Sonntag,11:30,Kolonaden 6,Mardelas_Q&A,guest,09_motion_1
-Sonntag,11:45,Autogramm 1,Attack on Titan,guest,17_motion
-Sonntag,11:45,Gesellschaftssaal,Iso Mitsou,guest,17_motion
-Sonntag,11:45,Kolonaden 4+5,Cosplay-Fotografie für Anfänger,workshop,09_motion_1
-Sonntag,12:30,Autogramm 2,Chii Sakurabi,guest,09_motion_1
-Sonntag,12:45,Kolonaden 6,Synchron-Workshop,workshop,09_motion_1
-Sonntag,13:00,Autogramm 1,Mardelas,guest,09_motion_1
-Sonntag,13:15,Festsaal,Karasu,guest,17_motion
-Sonntag,13:15,Gesellschaftssaal,How to Japan:_Abgelegene Regionen,vortrag,17_motion
-Sonntag,13:30,Kolonaden 4+5,Zeichenworkshop:_ von einfach nur Kawaii bis Chibi,workshop,17_motion
-Sonntag,14:00,Autogramm 2,Iso Mitsuo,guest,17_motion
-Sonntag,14:30,Autogramm 1,Gainax,guest,17_motion
-Sonntag,15:00,Blauer Saal,Nudelschlürfwettbewerb,contest,17_motion
-Sonntag,15:00,Kolonaden 6,Cosplay:_Bootcovers,workshop,17_motion
-Sonntag,15:15,Gesellschaftssaal,Cosplay Photography,workshop,17_motion
-Sonntag,15:30,Kolonaden 4+5,"Qual der Wahl: Thermoplaste, Styrodur oder Foam?",workshop,17_motion
-Sonntag,16:15,Festsaal, Chii Sakurabi_Konzert,guest,17_motion
-Sonntag,16:15,Kolonaden 6,Cosplay: Applikationen,workshop,17_motion
-Sonntag,17:00,Festsaal,Abschlussveranstaltung,default,17_motion
+day,time,location,headline,subheadline,type,filename
+Freitag,14:15,Gesellschaftssaal,Figure Collecting,,workshop,02_motion
+Freitag,14:15,Kolonaden 4+5,Facebook &_Instagramm_f�r Cosplayer,,workshop,02_motion
+Freitag,14:30,Autogramm 1,"Twin Cosplay,_Shiro &_Shunuske",Signierstunde,guest,02_motion
+Freitag,14:30,Kolonaden 6,Bewerben_beim Verlag_f�r Zeichner & Autoren,,vortrag,02_motion
+Freitag,15:00,Festsaal,Omoshiro!,,showact,02_motion
+Freitag,15:30,Autogramm 2,Iso Mitsuo,Signierstunde,guest,02_motion
+Freitag,15:45,Kolonaden 4+5,Das Cosplay-Perücken 1*1,,workshop,02_motion
+Freitag,15:45,Gesellschaftssaal,25 Jahre_Sailor Moon,,vortrag,03_motion_1
+Freitag,16:00,Kolonaden 6,Synchron-Workshop,,workshop,09_motion_1
+Freitag,16:00,Autogramm 1,Hiroyuki Yamaga &_Yasuhiro Takeda,Signierstunde,guest,02_motion
+Freitag,16:15,Festsaal,Chii Sakurabi,Konzert,guest,02_motion
+Freitag,16:15,Blauer Saal,Shinji Schneider,,showact,02_motion
+Freitag,17:00,Gesellschaftssaal,AMV-Workshop,,workshop,02_motion
+Freitag,17:00,Autogramm 2,Max Felder_Ren_ Dawn-Claude &_Christian Zeiger,Signierstunde,guest,02_motion
+Freitag,17:00,Festsaal,Connichi-Cosplay,Wettbewerb,contest,02_motion
+Freitag,17:15,Kolonaden 4+5,Nühen für_Anfünger,,workshop,02_motion
+Freitag,17:30,Blauer Saal,One Piece Gold,Filmvorf�hrung KAZ�,default,02_motion
+Freitag,17:30,Autogramm 1,Ulla Wagener &_Patricia Strasburger,Signierstunde,guest,02_motion
+Freitag,18:30,Kolonaden 6,Klassische Animationen_in 2D,,workshop,02_motion
+Freitag,18:30,Autogramm 2,Mardelas,Signierstunde,guest,02_motion
+Freitag,18:45,Kolonaden 4+5,Cosplay:_Alles was fehlt_ist Farbe,,workshop,02_motion
+Freitag,19:00,Gesellschaftssaal,Character Design,,workshop,02_motion
+Freitag,19:00,Autogramm 1,Chii Sakurabi,Signierstunde,guest,02_motion
+Freitag,19:30,Festsaal,Karasu,Auftritt,guest,02_motion
+Freitag,19:45,Blauer Saal,Ikimasho,,showact,02_motion
+Freitag,20:00,Kolonaden 6,Digitale Animationen_mit 'Open Toonz',,workshop,02_motion
+Freitag,20:00,Autogramm 2,Rooster Teeth_Miles Luna &_Patrick Rodriguez,Signierstunde,guest,02_motion
+Freitag,20:15,Kolonaden 4+5,Crossplay 1*1_f�r Sie,,workshop,02_motion
+Freitag,20:30,Festsaal,Connichi-Cosplay,Siegerehrung,contest,02_motion
+Freitag,20:45,Au��enbereich,Matsuri Feuerwerk,,event,02_motion
+Freitag,21:00,Festsaal,Cosplay Video Contest,,contest,02_motion
+Freitag,21:30,Festsaal,AMV-Nacht,,event,02_motion
+Freitag,21:15,Blauer Saal,Bushido Workshop,mit Karasu,guest,02_motion
+Freitag,21:15,Gesellschaftssaal,Cosplay_für Anfünger,,workshop,02_motion
+Freitag,22:00,Kolonaden 4+5,Otaku Quiz,,contest,06_motion_1
+Freitag,22:00,Kolonaden 6,Von der Fanfiction_zur Lustgrotte,,vortrag,06_motion_1
+Samstag,10:15,Kolonaden 6,Hintergründe zeichnen,Die 1-Punkt bis 3-Punkt_Perspektive,workshop,02_motion
+Samstag,10:30,Blauer Saal,D.A.N.G.O,,showact,02_motion
+Samstag,10:30,Gesellschaftssaal,Sound Recording_for Cosplay Acts,,workshop,02_motion
+Samstag,10:30,Kolonaden 4+5,Foamsmithing,R�stungen & Props aus Foam,workshop,02_motion
+Samstag,10:45,Autogramm 1,Karasu,Signierstunde,guest,02_motion
+Samstag,11:00,Festsaal,European Cosplay Gathering (ECG),,contest,02_motion
+Samstag,11:45,Kolonaden 6,"This is Heavy Metal,_Baby",,workshop,02_motion
+Samstag,12:00,Gesellschaftssaal,Ulla Wagener &_Patricia Strasburger,Q&A Panel,guest,02_motion
+Samstag,12:00,Kolonaden 4+5,Der professionelle Auftritt_für Commissioner_& Künstler,f�r Commissioner & K�nstler,workshop,02_motion
+Samstag,12:00,Autogramm 1,Rooster Teeth_Miles Luna &_Patrick Rodriguez,Signierstunde,guest,02_motion
+Samstag,12:15,Blauer Saal,Ongaku no Kara,,showact,02_motion
+Samstag,12:15,Autogramm 2,Chii Sakurabi,Q&A Panel,guest,02_motion
+Samstag,13:15,Festsaal,Shiroku,Konzert,showact,17_motion
+Samstag,13:15,Kolonaden 6,Petticoats & Reifrücke,,workshop,02_motion
+Samstag,13:15,Autogramm 2,Chii Sakurabi,Signierstunde,guest,02_motion
+Samstag,13:30,Gesellschaftssaal,Cosplay 30+,,vortrag,05_motion_1
+Samstag,13:30,Kolonaden 4+5,Max Felder_Ren_ Dawn-Claude &_Christian Zeiger,Q&A Panel,guest,02_motion
+Samstag,13:30,Autogramm 1,Ulla Wagener &_Patricia Strasburger,Signierstunde,guest,05_motion_1
+Samstag,13:45,Blauer Saal,Para Para Connection,,showact,02_motion
+Samstag,14:15,Festsaal,Daijoubu,,showact,02_motion
+Samstag,14:45,Kolonaden 6,Synchron-Workshop,,workshop,09_motion_1
+Samstag,14:45,Autogramm 1,Max Felder_Ren_ Dawn-Claude &_Christian Zeiger,Signierstunde,guest,02_motion
+Samstag,15:00,Gesellschaftssaal,Hiroyuki Yamaga &_Yasuhiro Takeda,Q&A Panel,guest,02_motion
+Samstag,15:30,Kolonaden 4+5,Raiders of the_Lost Plot,Schreib-Workshop,workshop,02_motion
+Samstag,15:30,Blauer Saal,Karasu,Auftritt,guest,02_motion
+Samstag,15:30,Autogramm 2,Iso Mitsuo,Signierstunde,guest,02_motion
+Samstag,16:00,Festsaal,Shinji Schneider,,showact,02_motion
+Samstag,16:00,Autogramm 1,Hiroyuki Yamaga &_Yasuhiro Takeda,Signierstunde,guest,02_motion
+Samstag,16:30,Blauer Saal,Poetry Slam,,contest,02_motion
+Samstag,16:30,Gesellschaftssaal,Selbstorganisation_f�r Cosplayer,,workshop,02_motion
+Samstag,17:00,Kolonaden 4+5,Kost�m-Weathering & -Bemalung,,workshop,02_motion
+Samstag,17:30,Festsaal,Kira Kira Hikaru,,showact,02_motion
+Samstag,17:30,Autogramm 1,Twin Cosplay,_Shiro &_Shunuske,Signierstunde,guest,02_motion
+Samstag,18:00,Gesellschaftssaal,Cosplay als Business,Q&A Panel,vortrag,09_motion_1
+Samstag,18:15,Kolonaden 6,Workshop: Schminken,mit Karasu,guest,09_motion_1
+Samstag,18:30,Kolonaden 4+5,KaKAO - Kann man das trinken?,,vortrag,09_motion_1
+Samstag,19:15,Kolonaden 4+5,KaKAO Karten_Workshop,Zeichnen & Basteln erlaubt,workshop,09_motion_1
+Samstag,19:15,Blauer Saal,Einf�hrung in den_japanischen Humor,,vortrag,07_motion_1
+Samstag,19:30,Gesellschaftssaal,Schnittmuster-Basiswissen,,vortrag,04_motion_1
+Samstag,19:45,Festsaal,European Cosplay Gathering (ECG),Siegerehrung,contest,09_motion_1
+Samstag,19:45,Kolonaden 6,Mit Make-Up ist_Mann hübscher!,,workshop,09_motion_1
+Samstag,20:30,Festsaal,Mardelas,Konzert,guest,10_motion_1
+Samstag,20:45,Au��enbereich,Matsuri Feuerwerk,,event,02_motion
+Samstag,20:45,Kolonaden 4+5,Plushie n_hen_leicht gemacht,,workshop,10_motion_1
+Samstag,21:00,Blauer Saal,Bring & Auction,,programm,10_motion_1
+Samstag,21:30,Gesellschaftssaal,Mardelas,Signierstunde,guest,10_motion_1
+Samstag,22:00,Festsaal,AMV-Wettbewerb,,contest,09_motion_1
+Samstag,22:30,Kolonaden 6,Synchron-Workshop,Ab 18,workshop,09_motion_1
+Sonntag,10:15,Gesellschaftssaal,Bild & Lichtgestaltung,,workshop,09_motion_1
+Sonntag,10:15,Kolonaden 4+5,Workshop: Schminken,mit Karasu,guest,16_motion_1
+Sonntag,10:15,Kolonaden 6,Rooster Teeth_Miles Luna & Patrick Rodriguez,Q&A Panel,guest,16_motion_1
+Sonntag,10:30,Autogramm 1,Ulla Wagener &_Patricia Strasburger,Signierstunde,guest,16_motion_1
+Sonntag,11:00,Festsaal,WCS - World Cosplay Summit,Vorentscheid 2018,contest,16_motion_1
+Sonntag,11:00,Autogramm 2,Rooster Teeth_Miles Luna & Patrick Rodriguez,Signierstunde,guest,16_motion_1
+Sonntag,11:15,Blauer Saal,Die Yamasakis,,showact,16_motion_1
+Sonntag,11:30,Kolonaden 6,Mardelas,Q&A Panel,guest,09_motion_1
+Sonntag,11:45,Autogramm 1,Ren_ Dawn-Claude &_ Christian Zeiger,Signierstunde,guest,17_motion
+Sonntag,11:45,Kolonaden 4+5,Cosplay-Fotografie_für Anfünger,,workshop,09_motion_1
+Sonntag,12:00,Gesellschaftssaal,Iso Mitsou,Q&A Panel,guest,17_motion
+Sonntag,12:30,Blauer Saal,Imitari,,showact,09_motion_1
+Sonntag,12:30,Autogramm 2,Chii Sakurabi,Signierstunde,guest,09_motion_1
+Sonntag,12:45,Kolonaden 6,Synchron-Workshop,,workshop,09_motion_1
+Sonntag,13:00,Autogramm 1,Mardelas,Signierstunde,guest,09_motion_1
+Sonntag,13:15,Festsaal,Karasu,Auftritt,guest,17_motion
+Sonntag,13:15,Gesellschaftssaal,How to Japan:_Abgelegene Regionen,,vortrag,17_motion
+Sonntag,13:30,Kolonaden 4+5,Von einfach nur Kawaii bis Chibi,Zeichenworkshop,workshop,17_motion
+Sonntag,13:45,Blauer Saal,Sayuri,,showact,17_motion
+Sonntag,14:15,Festsaal,Horo,,showact,17_motion
+Sonntag,14:30,Autogramm 2,Iso Mitsuo,Signierstunde,guest,17_motion
+Sonntag,14:30,Autogramm 1,Hiroyuki Yamaga&_Yasuhiro Takeda,Signierstunde,guest,17_motion
+Sonntag,15:00,Blauer Saal,Nudelschlürfwettbewerb,,contest,17_motion
+Sonntag,15:00,Kolonaden 6,Cosplay:_Bootcovers,,workshop,17_motion
+Sonntag,15:15,Gesellschaftssaal,Cosplay-Fotografie,,workshop,17_motion
+Sonntag,15:30,Autogramm 2,Twin Cosplay,_Shiro &_Shunuske,Signierstunde,guest,17_motion
+Sonntag,15:30,Kolonaden 4+5,"Qual der Wahl: Thermoplaste,_Styrodur oder Foam?",,workshop,17_motion
+Sonntag,16:00,Festsaal, Chii Sakurabi,Konzert,guest,17_motion
+Sonntag,16:15,Kolonaden 6,Cosplay: Applikationen,,workshop,17_motion
+Sonntag,17:00,Festsaal,Abschlussveranstaltung,,default,17_motion
