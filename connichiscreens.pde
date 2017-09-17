@@ -461,6 +461,7 @@ void loadTeaser(int index) {
      this.updateTeaser();
      this.resetTeaser();
 }
+
 Movie loadMovie(String Path) {
   Movie tempM = new Movie(this, Path);
   tempM.noLoop();
@@ -468,6 +469,7 @@ Movie loadMovie(String Path) {
   tempM.volume(0);
   return tempM;
 }
+
 void updateTeaser() {
       bgImage = backgroundImage.get(int(random(4)));
       //TeaserVideo
