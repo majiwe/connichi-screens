@@ -38,7 +38,7 @@ Map<String, ColorSet> myColors = new HashMap<String, ColorSet>();
 ColorSet aktColor;
 color defaultColor;
 
-Mediatype playType = Mediatype.FIRSTRUN;
+Mediatype playType;
 int teaserLength = 0; // Total number of movies
 int teaserIndex = 0; // Initial movie to be displayed
 
@@ -58,9 +58,8 @@ boolean announcement = false,
         adsReady = false,
         checkForNext = false,
         isPlaying = false,
-        nextTeaser = false, 
-        nextAd = false,
-        playAds = false;       
+        next = false;
+       // playAds = false;       
     
 PImage stage,
        bgImage,
@@ -315,6 +314,10 @@ void setup() {
   //Set up our TeaserFiles
   teaserList = new TeaserList("teaser.csv");
   
+  checkForNext = true;
+  playType = Mediatype.TEASER;
+  next = false;
+  
   this.initColorSet();
   this.initTeaserText();
   this.initOrnament();
@@ -333,13 +336,7 @@ void exit() {
 }
 
 void draw() {
-
- //‚ background(backgroundImage); //default Background
-
   switch(playType) {
-    case FIRSTRUN:
-      checkForNext = true;
-      loadTeaser(teaserIndex); break;
     case ANNOUNCE: 
       showAnnouncement(headline, information);
       break;
@@ -374,13 +371,13 @@ void checkNext() {
       println("ClosingTime");
       return;
   }
-  else if (playAds){
+  else if (playType == Mediatype.ADVERT){
     adsReady = false;
-    if(nextAd) {
-      nextAd = false;    
+    if(next) {
+      next = false;    
       if (++adsIndex >= adsLength){
           adsIndex = 0;
-          playAds = false;
+         // playAds = false;
           playType = Mediatype.TEASER;
           checkForNext = true;
           return;
@@ -391,18 +388,20 @@ void checkNext() {
     playLog.write("Advertisment was played");  
     return;
   }
-  else if (nextTeaser) {
-    if (++teaserIndex >= teaserList.length){
-        teaserIndex = 0;
-        cicle++;
-        playAds = true;
-        playType = Mediatype.ADVERT;
-        checkForNext = true;
-        return;
-      }
-      teaser.stop(); teaser = null;
-      loadTeaser(teaserIndex);
-      nextTeaser = false;   
+  else if(playType == Mediatype.TEASER) {
+    if (next) {
+      next = false;
+      if (++teaserIndex >= teaserList.length){
+          teaserIndex = 0;
+          cicle++;
+          //playAds = true;
+          playType = Mediatype.ADVERT;
+          checkForNext = true;
+          return;
+        }
+    }
+    loadTeaser(teaserIndex);
+       
   }
   playType = Mediatype.TEASER;
 }
@@ -411,14 +410,14 @@ void playMovie(Movie movie, boolean isTeaser){
   if(movie.available()){
     movie.read();
   }
-   debugLog("drawcurrentTeaser");
+  debugLog("drawcurrentTeaser");
  
   debugLog("backgroundimage");
   
   if(isTeaser){ displayTeaser(movie); }
   else { displayAdvert(movie); }
   
-  //blende.display(bgImage);
+  blende.display(bgImage);
   debugLog("after backgroundImage");
   showFramerate ();
 }
@@ -547,13 +546,13 @@ void displayTeaser(Movie movie){
   teaserTime.display();
   teaserLocation.display();
   debugLog("afterText");
-  if(teaserSeq.isEnded()){ nextTeaser = true; isPlaying = false; checkForNext = true;}
+  if(teaserSeq.isEnded()){ next = true; isPlaying = false; checkForNext = true;}
 }
 void displayAdvert(Movie movie) {
     if(!isPlaying){ isPlaying = true;}
     image(movie,0,0); 
     g.removeCache(movie);
-    if(movie.time() >= (movie.duration()-1)){ nextAd = true; isPlaying = false; checkForNext = true; println ("endadvert");}
+    if(movie.time() >= (movie.duration()-1)){ next = true; isPlaying = false; checkForNext = true;}
 }
 
 /************************************************************************************
