@@ -59,7 +59,7 @@ PImage stage,
        logoImage,
        errorPage;
        
-ArrayList  <PImage> backgroundImage;       
+ArrayList<PImage> backgroundImage;       
        
 LogFile playLog, errorLog;
 Blende blende;
@@ -280,10 +280,12 @@ void setup() {
   backgroundImage = new ArrayList<PImage>();
   for(int i=0; i<4; i++) {
     backgroundImage.add(loadImage(dataPath("assets/images/inBetweener/inBetweener"+(i+1)+".png")));
-  }  
+  }
+  bgImage = backgroundImage.get(0);
+  
   logoImage = loadImage(dataPath("assets/images/logo_small.png"));
   stage = createImage(SCREEN_WIDTH,SCREEN_HEIGHT,RGB);
-  image(backgroundImage.get(0),0,0); //draw it once
+  image(bgImage,0,0); //draw it once
   
   // init default-styling
   noStroke();
@@ -318,7 +320,6 @@ void setup() {
 }
 void exit() {
   super.exit();
-  
 }
 
 void draw() {
@@ -358,8 +359,10 @@ void checkNext() {
     playLog.write("Announcement was played");    
     return;
   }
-  else if (false ) {
+  else if (int(""+hour()+""+minute()) >= 2200 ) {
       playType = Mediatype.CLOSING;
+      println("ClosingTime");
+      return;
   }
   else if (false /*playtimeAdvertise >= timerAdvertise*/ ){ 
     playType = Mediatype.ADVERT; 
@@ -566,6 +569,7 @@ void showAnnouncement(String headline, String information){
 float timePassed(int timeStamp){
   return ((millis() - timeStamp)/1000);
 }  
+
 void showFramerate(){
   if (framerate){
     textSize(24);
@@ -578,7 +582,7 @@ void keyPressed() {
   switch (key) {
     case 'F': framerate = !framerate; break;
     case 'T': /*reset*/; break; //reload Teaser
-    case 'C': stop();
+    case 'E': this.exit();
     case 'P': paused = !paused; break;
     case 'D': debug = !debug; break;
     case 'R': record =!record; break;
