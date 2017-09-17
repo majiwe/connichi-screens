@@ -18,19 +18,21 @@ final int SCREEN_WIDTH = 1920,
           Y_AXIS = 1,
           X_AXIS = 2;
                    
-File [] teaserFiles;
+
 
 boolean record = false;
 boolean framerate = false;
 boolean paused = false;
 boolean debug = false;
 
-// Parameter for TeaserList
+// Parameter for currentTeaserList
 TeaserList teaserList;
 Teaser currentTeaser;
 
 AnimatedText teaserHeadline, teaserSubheadline, teaserTime, teaserDay, teaserLocation;
 AnimatedShapes leftOrnament, rightOrnament, bigOrnament;
+AniSequence teaserSeq;
+Videolayer vLayer;
 
 Map<String, ColorSet> myColors = new HashMap<String, ColorSet>();
 ColorSet aktColor;
@@ -39,19 +41,26 @@ color defaultColor;
 Mediatype playType = Mediatype.FIRSTRUN;
 int teaserLength = 0; // Total number of movies
 int teaserIndex = 0; // Initial movie to be displayed
+
+int adsLength = 0; // Total number of movies
+int adsIndex = 0; // Initial movie to be displayed
+
 int startAnnouncement = 0;
 int cicle = 1;
 
 Movie teaser, advert;
+File [] adverts;
 
-AniSequence teaserSeq;
-Videolayer vLayer;
+
 
 boolean announcement = false,
         teaserReady = false,
+        adsReady = false,
         checkForNext = false,
         isPlaying = false,
-        nextTeaser = false;       
+        nextTeaser = false, 
+        nextAd = false,
+        playAds = false;       
     
 PImage stage,
        bgImage,
@@ -316,6 +325,8 @@ void setup() {
   //Write File
   playLog = new LogFile("play");
   errorLog = new LogFile("error");
+  
+  loadFiles("werbung");
 }
 void exit() {
   super.exit();
@@ -336,7 +347,7 @@ void draw() {
       if (teaserReady) { playMovie(teaser, true); }
       break;
     case ADVERT: 
-     // playMovie(advert, false); 
+      if (adsReady) { playMovie(advert, false); }
       break;
     case CLOSING:
       break;
@@ -363,8 +374,20 @@ void checkNext() {
       println("ClosingTime");
       return;
   }
-  else if (false /*playtimeAdvertise >= timerAdvertise*/ ){ 
-    playType = Mediatype.ADVERT; 
+  else if (playAds){
+    adsReady = false;
+    if(nextAd) {
+      nextAd = false;    
+      if (++adsIndex >= adsLength){
+          adsIndex = 0;
+          playAds = false;
+          playType = Mediatype.TEASER;
+          checkForNext = true;
+          return;
+      }
+    }
+    advert = this.loadMovie(adverts[adsIndex].getPath());
+    adsReady = true;
     playLog.write("Advertisment was played");  
     return;
   }
@@ -372,6 +395,10 @@ void checkNext() {
     if (++teaserIndex >= teaserList.length){
         teaserIndex = 0;
         cicle++;
+        playAds = true;
+        playType = Mediatype.ADVERT;
+        checkForNext = true;
+        return;
       }
       teaser.stop(); teaser = null;
       loadTeaser(teaserIndex);
@@ -384,15 +411,14 @@ void playMovie(Movie movie, boolean isTeaser){
   if(movie.available()){
     movie.read();
   }
-   debugLog("drawTeaser");
-  if(isTeaser){ displayTeaser(movie); }
-  else { 
-    set(0,0,movie); 
-    g.removeCache(movie);
-    }
-    debugLog("backgroundimage");
+   debugLog("drawcurrentTeaser");
+ 
+  debugLog("backgroundimage");
   
-  blende.display(bgImage);
+  if(isTeaser){ displayTeaser(movie); }
+  else { displayAdvert(movie); }
+  
+  //blende.display(bgImage);
   debugLog("after backgroundImage");
   showFramerate ();
 }
@@ -409,8 +435,10 @@ void loadFiles (String folderName){
                        return filename.endsWith(".mp4"); 
                      }
                   });
-  teaserFiles = files;
-  teaserLength = files.length;
+  adverts = files;
+  adsLength = files.length;
+  println (adverts);
+  println (adsLength);
 }
 
 /************************************************************************************
@@ -434,7 +462,13 @@ void loadTeaser(int index) {
      this.updateTeaser();
      this.resetTeaser();
 }
-
+Movie loadMovie(String Path) {
+  Movie tempM = new Movie(this, Path);
+  tempM.noLoop();
+  tempM.play();
+  tempM.volume(0);
+  return tempM;
+}
 void updateTeaser() {
       bgImage = backgroundImage.get(int(random(4)));
       //TeaserVideo
@@ -514,6 +548,12 @@ void displayTeaser(Movie movie){
   teaserLocation.display();
   debugLog("afterText");
   if(teaserSeq.isEnded()){ nextTeaser = true; isPlaying = false; checkForNext = true;}
+}
+void displayAdvert(Movie movie) {
+    if(!isPlaying){ isPlaying = true;}
+    image(movie,0,0); 
+    g.removeCache(movie);
+    if(movie.time() >= (movie.duration()-1)){ nextAd = true; isPlaying = false; checkForNext = true; println ("endadvert");}
 }
 
 /************************************************************************************
