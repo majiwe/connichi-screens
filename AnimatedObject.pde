@@ -20,6 +20,10 @@ public float scale = 1.0, rotation = 0.0;
      return animation.to(this, dur, offset, propertylist, easing);
   }
   
+  Ani[] setAnimation(float dur, float offset, String propertylist, Easing easing, Object obj, String callback){
+     return animation.to(this, dur, offset, propertylist, easing, obj, callback);
+  }
+  
   void setRotation(int r){
     this.rotation = r;
     this.update();
