@@ -61,12 +61,11 @@ boolean announcement = false,
         next = false;
        // playAds = false;       
     
-PImage stage,
-       bgImage,
+PImage bgImage,
        logoImage,
        errorPage;
        
-ArrayList<PImage> backgroundImage;       
+     
        
 LogFile playLog, errorLog;
 Blende blende;
@@ -285,15 +284,10 @@ void setup() {
   PrimaryFont = createFont(dataPath("assets/fonts/FTY SPEEDY CASUAL NCV.ttf"),80);
     
   //setup a default Background
-  backgroundImage = new ArrayList<PImage>();
-  for(int i=0; i<4; i++) {
-    backgroundImage.add(loadImage(dataPath("assets/images/inBetweener/inBetweener"+(i+1)+".png")));
-  }
-  bgImage = backgroundImage.get(0);
+
   
   logoImage = loadImage(dataPath("assets/images/logo_small.png"));
-  stage = createImage(SCREEN_WIDTH,SCREEN_HEIGHT,RGB);
-  image(bgImage,0,0); //draw it once
+
   
   // init default-styling
   noStroke();
@@ -302,9 +296,10 @@ void setup() {
   errorPage = loadImage(dataPath("default/error.jpg"));
   
   //init Blende
-  blende = new Blende(stage,0,0,SCREEN_WIDTH, SCREEN_HEIGHT);
+  blende = new Blende(0,0,SCREEN_WIDTH, SCREEN_HEIGHT);
+  //background(blende.getImage(0)); //draw it once
  // blende.setLogo(logoImage);
-  
+  blende.initAnimationSequence(this);
     
   // set up the videoLayer
   vLayer = new Videolayer (hexagon, 1920, -50, 1080, 1080);
@@ -417,8 +412,10 @@ void playMovie(Movie movie, boolean isTeaser){
   if(isTeaser){ displayTeaser(movie); }
   else { displayAdvert(movie); }
   
-  blende.display(bgImage);
-  debugLog("after backgroundImage");
+  //if (blend) {
+    blende.display();
+    debugLog("after backgroundImage");
+  //}
   showFramerate ();
 }
 
@@ -471,7 +468,7 @@ Movie loadMovie(String Path) {
 }
 
 void updateTeaser() {
-      bgImage = backgroundImage.get(int(random(4)));
+      
       //TeaserVideo
       teaser = new Movie(this, dataPath("teaser/"+currentTeaser.filePath+".mp4"));
       teaser.noLoop();

@@ -3,28 +3,41 @@ class Blende extends AnimatedObject{
   PGraphics mask;
   boolean logo = false;
   PImage logoImage, stage;
+  ArrayList<PImage> backgroundImage;  
+  AniSequence blendeSeq;
   
-  Blende(PImage stage, int x , int y, int w, int h){
+  Blende(int x , int y, int w, int h){
     super(x,y,w,h);
     this.maskWidth = w;
     this.maskHeight = h;
-    this.stage = stage;
+    
+    this.backgroundImage = new ArrayList<PImage>();
+    for(int i=0; i<4; i++) {
+      this.backgroundImage.add(loadImage(dataPath("assets/images/inBetweener/inBetweener"+(i+1)+".png")));
+    }
+    this.stage = this.backgroundImage.get(0);
     mask = createGraphics(this.width, this.height);
     
+  }
+  void replaceBlende() {
+    //this.stage = this.backgroundImage.get(int(random(this.backgroundImage.length())));
   }
   void initMask(String type) {
     /* if (type == "curtain") {*/
        this.maskWidth = 1920;
-       this.maskHeight = 0;
-       this.maskY = (this.height/2);
+       this.maskHeight = 1080;
+       this.maskY = 0;
      /*}*/
   }
   void setLogo (PImage l) {
     this.logoImage = l;
     this.logo = true;
   }
+  PImage getImage(int index) {
+     return this.backgroundImage.get(3);
+  }
   
-  void display(PImage myImage){
+  void display(){
     float p1X = this.maskX, 
           p1Y = this.maskY,
           p2X = (this.maskX+this.maskWidth), 
@@ -40,16 +53,38 @@ class Blende extends AnimatedObject{
     mask.endDraw(); // end 
     
     // println ("append blendeMask: "+ millis());
-    myImage.mask(mask);
+    this.stage.mask(mask);
     // println ("after append blendeMask: "+ millis());
-    image(myImage,0,0);
+    //image(mask,0,0);
+    image(this.stage,0,0);
     // println ("after blendeMask drawn: "+ millis());
     if(this.logo) {
       imageMode(CENTER);
       image(this.logoImage,this.width/2,this.height/2);
       imageMode(CORNER);
     }
-    g.removeCache(myImage);
+    g.removeCache(this.stage);
+  }
+  
+  void initAnimationSequence(PApplet pa) {
+    blendeSeq = new AniSequence(pa); 
+    blendeSeq.beginSequence();
+           
+       //Step - Close Blende   
+       blendeSeq.beginStep();
+         blendeSeq.add(blende.setAnimation(FADE_DUR*2,0.0,"maskY:540,maskHeight:0", Ani.LINEAR));
+       blendeSeq.endStep();  
+     
+       //Step - Open Blende
+       blendeSeq.beginStep();
+         blendeSeq.add(blende.setAnimation(FADE_DUR,0.0,"maskY:0,maskHeight:1080", Ani.LINEAR));
+       blendeSeq.endStep();
+    blendeSeq.endSequence();
+    blendeSeq.start();
+  }
+  
+  void start (){
+      blendeSeq.start();
   }
   
   Ani[] setAnimation(String type, float dur, float offset, String direction){
@@ -59,8 +94,8 @@ class Blende extends AnimatedObject{
   }
 
   Ani[] blendTypeCurtain(float dur, float offset, String direction) {
-      String propertylist = (direction == "in") ? ("maskY:0,maskHeight:"+this.height) : ("maskY:"+(this.height/2)+",maskHeight:0");
-      return super.setAnimation(dur, offset, propertylist, Ani.QUINT_IN);
+      String propertylist = (direction == "close") ? ("maskY:540,maskHeight:0") : ("maskY:0,maskHeight:1080");
+      return super.setAnimation(dur, offset, propertylist, Ani.LINEAR);
   }
 
 }
