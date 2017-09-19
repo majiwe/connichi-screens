@@ -72,12 +72,12 @@ class Blende extends AnimatedObject{
            
        //Step - Close Blende   
        blendeSeq.beginStep();
-         blendeSeq.add(blende.setAnimation(FADE_DUR*2,0.0,"maskY:540,maskHeight:0", Ani.LINEAR));
+         blendeSeq.add(blende.setAnimation(FADE_DUR,0.0,"maskY:540,maskHeight:0", Ani.QUAD_OUT));
        blendeSeq.endStep();  
      
        //Step - Open Blende
        blendeSeq.beginStep();
-         blendeSeq.add(blende.setAnimation(FADE_DUR,0.0,"maskY:0,maskHeight:1080", Ani.LINEAR));
+         blendeSeq.add(blende.setAnimation(FADE_DUR,0.0,"maskY:0,maskHeight:1080", Ani.QUAD_IN));
        blendeSeq.endStep();
     blendeSeq.endSequence();
     blendeSeq.start();
