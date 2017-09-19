@@ -17,8 +17,6 @@ final int SCREEN_WIDTH = 1920,
           SCREEN_HEIGHT = 1080,
           Y_AXIS = 1,
           X_AXIS = 2;
-                   
-
 
 boolean record = false;
 boolean framerate = false;
@@ -85,9 +83,9 @@ String headline, information;
 void initTeaserAnimation (String blendType) {
     float endOffset = (TEASER_DUR - (2*(FADE_DUR+ANIMATION_DUR)));
     
-    //<>//
+   
   blende.initAnimationSequence(this);
-         
+          //<>//
    teaserSeq = new AniSequence(this);
    teaserSeq.beginSequence();
        
@@ -295,9 +293,9 @@ void setup() {
   
   //init Blende
   blende = new Blende(0,0,SCREEN_WIDTH, SCREEN_HEIGHT);
-  //background(blende.getImage(0)); //draw it once
+  background(blende.getImage(0)); //draw it once
   blende.initMask("diagonal");
-  blende.setLogo(logoImage);
+  //blende.setLogo(logoImage);
     
   // set up the videoLayer
   vLayer = new Videolayer (hexagon, 1920, -50, 1080, 1080);
@@ -500,7 +498,7 @@ void updateTeaser() {
 void unloadTeaser() {
     
     teaser.stop();
-    teaser = null;
+    //teaser = null;
     
     bigOrnament = null;
     leftOrnament = null;
