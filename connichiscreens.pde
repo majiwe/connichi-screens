@@ -8,7 +8,7 @@ import java.util.ArrayList;
 PFont PrimaryFont;
 PShape hexagon;
 
-final float FADE_DUR = 1.25,
+final float FADE_DUR = 0.5,
             ANIMATION_DUR = 1.0,
             ANNOUNCEMENT_DUR = 10.0,
             TEASER_DUR = 15;
@@ -24,6 +24,7 @@ boolean record = false;
 boolean framerate = false;
 boolean paused = false;
 boolean debug = false;
+boolean blend = false;
 
 // Parameter for currentTeaserList
 TeaserList teaserList;
@@ -83,15 +84,15 @@ String headline, information;
 
 void initTeaserAnimation (String blendType) {
     float endOffset = (TEASER_DUR - (2*(FADE_DUR+ANIMATION_DUR)));
-
+    
+    //<>//
+  blende.initAnimationSequence(this);
+         
    teaserSeq = new AniSequence(this);
    teaserSeq.beginSequence();
        
      //Step - Move In   
      teaserSeq.beginStep();
-       //Fade Blende in
-       
-       teaserSeq.add(blende.setAnimation(blendType,FADE_DUR,0.0,"in"));
        
        teaserSeq.add(vLayer.setAnimation(ANIMATION_DUR, FADE_DUR, "x:960",Ani.LINEAR));
        teaserSeq.add(teaserHeadline.setAnimation(ANIMATION_DUR, FADE_DUR,"fontX:"+teaserHeadline.endPos_X,Ani.QUAD_OUT));
@@ -121,10 +122,7 @@ void initTeaserAnimation (String blendType) {
        
        teaserSeq.add( vLayer.setAnimation(ANIMATION_DUR, endOffset, "x:1920",Ani.LINEAR));
        teaserSeq.add(teaserHeadline.setAnimation(ANIMATION_DUR, endOffset,"fontX:"+teaserHeadline.offPos_X,Ani.QUAD_IN));
-       teaserSeq.add(teaserSubheadline.setAnimation(ANIMATION_DUR, endOffset,"fontX:"+teaserSubheadline.offPos_X,Ani.QUAD_IN));
-       
-       //Fade Blende Out
-       teaserSeq.add(blende.setAnimation(blendType, FADE_DUR, (endOffset+ANIMATION_DUR),"out"));
+       teaserSeq.add(teaserSubheadline.setAnimation(ANIMATION_DUR, endOffset,"fontX:"+teaserSubheadline.offPos_X,Ani.QUAD_IN));       
      teaserSeq.endStep();
      
     teaserSeq.endSequence();
@@ -298,8 +296,8 @@ void setup() {
   //init Blende
   blende = new Blende(0,0,SCREEN_WIDTH, SCREEN_HEIGHT);
   //background(blende.getImage(0)); //draw it once
- // blende.setLogo(logoImage);
-  blende.initAnimationSequence(this);
+  blende.initMask("diagonal");
+  blende.setLogo(logoImage);
     
   // set up the videoLayer
   vLayer = new Videolayer (hexagon, 1920, -50, 1080, 1080);
@@ -317,7 +315,7 @@ void setup() {
   this.initTeaserText();
   this.initOrnament();
   
-  blende.initMask("diagonal");
+  
   this.initTeaserAnimation("diagonal");
   
   //Write File
@@ -356,6 +354,7 @@ void draw() {
 
 void checkNext() {
   checkForNext = false;
+  
   if (checkAnnouncement("announcement.json")) { 
     playType = Mediatype.ANNOUNCE; 
     playLog.write("Announcement was played");    
@@ -472,7 +471,6 @@ void updateTeaser() {
       //TeaserVideo
       teaser = new Movie(this, dataPath("teaser/"+currentTeaser.filePath+".mp4"));
       teaser.noLoop();
-      teaser.play();
       
       teaserHeadline.setText(currentTeaser.headline);
       teaserHeadline.setColor(aktColor.primary);
@@ -523,7 +521,7 @@ void resetTeaser(){
 }
 
 void displayTeaser(Movie movie){
- if(!isPlaying){ teaserSeq.start(); isPlaying = true;}
+ if(!isPlaying){ blend = false; teaserSeq.start(); movie.play(); isPlaying = true;}
    
   clear();
    debugLog("teaserBg");
@@ -545,10 +543,10 @@ void displayTeaser(Movie movie){
   teaserTime.display();
   teaserLocation.display();
   debugLog("afterText");
-  if(teaserSeq.isEnded()){ next = true; isPlaying = false; checkForNext = true;}
+  if(teaserSeq.isEnded()){ next = true; isPlaying = false; checkForNext = true; blend = true; blende.start();}
 }
 void displayAdvert(Movie movie) {
-    if(!isPlaying){ isPlaying = true;}
+    if(!isPlaying){ isPlaying = true; movie.play();}
     image(movie,0,0); 
     g.removeCache(movie);
     if(movie.time() >= (movie.duration()-1)){ next = true; isPlaying = false; checkForNext = true;}
