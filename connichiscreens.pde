@@ -55,7 +55,7 @@ File [] adverts;
 boolean announcement = false,
         teaserReady = false,
         adsReady = false,
-        checkForNext = false,
+        firstRun = false,
         isPlaying = false;    
     
 PImage bgImage,
@@ -88,12 +88,14 @@ float endOffset = (TEASER_DUR - (2*(FADE_DUR+ANIMATION_DUR)));
            
        //Step - Close Blende   
        blendeSeq.beginStep();
-         blendeSeq.add(blende.setAnimation(FADE_DUR,0.0,"maskY:540,maskHeight:0", Ani.QUAD_OUT, this, "onEnd:callbackClosedBlende"));
+         blendeSeq.add(blende.setAnimation(FADE_DUR,0.0,"maskY:540", Ani.QUAD_OUT));
+         blendeSeq.add(blende.setAnimation(FADE_DUR,0.0,"maskHeight:0", Ani.QUAD_OUT, this, "onEnd:callbackClosedBlende"));
        blendeSeq.endStep();  
      
        //Step - Open Blende
        blendeSeq.beginStep();
-         blendeSeq.add(blende.setAnimation(FADE_DUR,0.5,"maskY:0,maskHeight:1080", Ani.QUAD_IN, this, "onEnd:callbackOpenBlende"));
+         blendeSeq.add(blende.setAnimation(FADE_DUR,0.5,"maskY:0", Ani.QUAD_IN));
+         blendeSeq.add(blende.setAnimation(FADE_DUR,0.5,"maskHeight:1080", Ani.QUAD_IN, this, "onEnd:callbackOpenBlende"));
        blendeSeq.endStep();
     blendeSeq.endSequence();
     blendeSeq.start();
@@ -317,7 +319,7 @@ void setup() {
   //Set up our TeaserFiles
   teaserList = new TeaserList("teaser.csv");
   
-  checkForNext = true;
+  firstRun = true;
   playType = Mediatype.TEASER;
   
   this.initColorSet();
@@ -356,13 +358,13 @@ void draw() {
   if (record) {
     saveFrame(dataPath("screenshot/frame-#########.tga"));
   }
-  if (checkForNext){
+  if (firstRun){
     thread("checkNext");
   }
 }
 
 void checkNext(boolean next) {
-  checkForNext = false;
+  firstRun = false;
   
   if (checkAnnouncement("announcement.json")) { 
     playType = Mediatype.ANNOUNCE; 
@@ -382,7 +384,6 @@ void checkNext(boolean next) {
           adsIndex = 0;
          // playAds = false;
           playType = Mediatype.TEASER;
-          checkForNext = true;
           return;
       }
     }
@@ -399,7 +400,6 @@ void checkNext(boolean next) {
           cicle++;
           //playAds = true;
           playType = Mediatype.ADVERT;
-          checkForNext = true;
           return;
         }
     }
@@ -408,6 +408,7 @@ void checkNext(boolean next) {
   }
   playType = Mediatype.TEASER;
 }
+void checkNext() { checkNext(false); }
 
 void playMovie(Movie movie, boolean isTeaser){
   if(movie.available()){
@@ -584,7 +585,7 @@ boolean checkAnnouncement(String filename) {
 void showAnnouncement(String headline, String information){
   if (!isPlaying) { startAnnouncement = millis(); isPlaying= true; }
   image(errorPage,0,0);
-  if(timePassed(startAnnouncement) >= ANNOUNCEMENT_DUR){isPlaying = false; checkForNext = true;}
+  if(timePassed(startAnnouncement) >= ANNOUNCEMENT_DUR){isPlaying = false; checkNext(false);}
 }
 
 
