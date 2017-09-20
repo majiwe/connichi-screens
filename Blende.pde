@@ -13,7 +13,7 @@ class Blende extends AnimatedObject{
     
     this.backgroundImage = new ArrayList<PImage>();
     for(int i=0; i<4; i++) {
-      this.backgroundImage.add(loadImage(dataPath("assets/images/inBetweener/inBetweener"+(i+1)+".png")));
+      this.backgroundImage.add(loadImage(dataPath("assets/images/inBetweener/inBetweener"+(i+1)+".jpg")));
     }
     this.stage = this.backgroundImage.get(0);
     mask = createGraphics(this.width, this.height);
@@ -82,6 +82,13 @@ class Blende extends AnimatedObject{
     blendeSeq.endSequence();
     blendeSeq.start();
   }
+  
+  void sequenceEnd() {
+    int in = int(random(4));
+    println("sequenceEnd");
+      this.stage = this.backgroundImage.get(in);
+  }
+  void seqEnd() {println("seqEnd"); }
   
   void start (){
       blendeSeq.start();
