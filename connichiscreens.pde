@@ -31,6 +31,7 @@ Teaser currentTeaser;
 AnimatedText teaserHeadline, teaserSubheadline, teaserTime, teaserDay, teaserLocation;
 AnimatedShapes leftOrnament, rightOrnament, bigOrnament;
 AniSequence teaserSeq;
+ AniSequence blendeSeq;
 Videolayer vLayer;
 
 Map<String, ColorSet> myColors = new HashMap<String, ColorSet>();
@@ -81,11 +82,25 @@ String headline, information;
 *************************************************************************************/  
 
 void initTeaserAnimation (String blendType) {
-    float endOffset = (TEASER_DUR - (2*(FADE_DUR+ANIMATION_DUR)));
+float endOffset = (TEASER_DUR - (2*(FADE_DUR+ANIMATION_DUR)));
     
-   
-  blende.initAnimationSequence(this);
-          //<>//
+  //blende.initAnimationSequence(this);
+    
+    blendeSeq = new AniSequence(this); 
+    blendeSeq.beginSequence();
+           
+       //Step - Close Blende   
+       blendeSeq.beginStep();
+         blendeSeq.add(blende.setAnimation(FADE_DUR,0.0,"maskY:540,maskHeight:0", Ani.QUAD_OUT, this, "onEnd:callbackClosedBlende"));
+       blendeSeq.endStep();  
+     
+       //Step - Open Blende
+       blendeSeq.beginStep();
+         blendeSeq.add(blende.setAnimation(FADE_DUR,0.5,"maskY:0,maskHeight:1080", Ani.QUAD_IN, this, "onEnd:callbackOpenBlende"));
+       blendeSeq.endStep();
+    blendeSeq.endSequence();
+    blendeSeq.start();
+    
    teaserSeq = new AniSequence(this);
    teaserSeq.beginSequence();
        
@@ -469,6 +484,7 @@ void updateTeaser() {
       //TeaserVideo
       teaser = new Movie(this, dataPath("teaser/"+currentTeaser.filePath+".mp4"));
       teaser.noLoop();
+      teaser.play();
       
       teaserHeadline.setText(currentTeaser.headline);
       teaserHeadline.setColor(aktColor.primary);
@@ -541,7 +557,7 @@ void displayTeaser(Movie movie){
   teaserTime.display();
   teaserLocation.display();
   debugLog("afterText");
-  if(teaserSeq.isEnded()){ next = true; isPlaying = false; checkForNext = true; blend = true; blende.start();}
+  if(teaserSeq.isEnded()){ next = true; isPlaying = false; checkForNext = true; blend = true; blendeSeq.start();}
 }
 void displayAdvert(Movie movie) {
     if(!isPlaying){ isPlaying = true; movie.play();}
@@ -635,7 +651,11 @@ void keyPressed() {
   }
 }
 
-
+  void callbackOpenBlende() {
+    blende.sequenceEnd();
+  }
+  void callbackClosedBlende() {checkForNext = true; next = true; blende.seqEnd(); }
+  
 /************************************************************************************
                           Write Log
 *************************************************************************************/   
