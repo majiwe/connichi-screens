@@ -22,7 +22,6 @@ boolean record = false;
 boolean framerate = false;
 boolean paused = false;
 boolean debug = false;
-boolean blend = false;
 
 // Parameter for currentTeaserList
 TeaserList teaserList;
@@ -57,9 +56,7 @@ boolean announcement = false,
         teaserReady = false,
         adsReady = false,
         checkForNext = false,
-        isPlaying = false,
-        next = false;
-       // playAds = false;       
+        isPlaying = false;    
     
 PImage bgImage,
        logoImage,
@@ -308,7 +305,7 @@ void setup() {
   
   //init Blende
   blende = new Blende(0,0,SCREEN_WIDTH, SCREEN_HEIGHT);
-  background(blende.getImage(0)); //draw it once
+  //background(blende.getImage(0)); //draw it once
   blende.initMask("diagonal");
   //blende.setLogo(logoImage);
     
@@ -322,7 +319,6 @@ void setup() {
   
   checkForNext = true;
   playType = Mediatype.TEASER;
-  next = false;
   
   this.initColorSet();
   this.initTeaserText();
@@ -365,7 +361,7 @@ void draw() {
   }
 }
 
-void checkNext() {
+void checkNext(boolean next) {
   checkForNext = false;
   
   if (checkAnnouncement("announcement.json")) { 
@@ -445,8 +441,6 @@ void loadFiles (String folderName){
                   });
   adverts = files;
   adsLength = files.length;
-  println (adverts);
-  println (adsLength);
 }
 
 /************************************************************************************
@@ -535,7 +529,7 @@ void resetTeaser(){
 }
 
 void displayTeaser(Movie movie){
- if(!isPlaying){ blend = false; teaserSeq.start(); movie.play(); isPlaying = true;}
+ if(!isPlaying){ teaserSeq.start(); movie.play(); isPlaying = true;}
    
   clear();
    debugLog("teaserBg");
@@ -557,13 +551,13 @@ void displayTeaser(Movie movie){
   teaserTime.display();
   teaserLocation.display();
   debugLog("afterText");
-  if(teaserSeq.isEnded()){ next = true; isPlaying = false; checkForNext = true; blend = true; blendeSeq.start();}
+  if(teaserSeq.isEnded()){ isPlaying = false; blendeSeq.start();}
 }
 void displayAdvert(Movie movie) {
     if(!isPlaying){ isPlaying = true; movie.play();}
     image(movie,0,0); 
     g.removeCache(movie);
-    if(movie.time() >= (movie.duration()-1)){ next = true; isPlaying = false; checkForNext = true;}
+    if(movie.time() >= (movie.duration()-1)){isPlaying = false; blendeSeq.start();}
 }
 
 /************************************************************************************
@@ -654,7 +648,7 @@ void keyPressed() {
   void callbackOpenBlende() {
     blende.sequenceEnd();
   }
-  void callbackClosedBlende() {checkForNext = true; next = true; blende.seqEnd(); }
+  void callbackClosedBlende() { checkNext(true); blende.seqEnd(); }
   
 /************************************************************************************
                           Write Log
