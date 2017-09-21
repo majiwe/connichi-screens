@@ -210,7 +210,7 @@ void initColorSet() {
      color(255, 255, 255),
      color(175, 175, 175),
      color(0, 96, 126),
-     color(13, 29, 39),
+     color(10, 30, 71),
      color(77, 169,227),
      color(0, 195, 255)
   ));
@@ -221,8 +221,8 @@ void initColorSet() {
      color(47, 71,3),
      color(121, 181, 10),
      color(47, 71,3),
-     color(145, 187,66),
-     color(170, 255,10)
+     color(198, 255,90),
+     color(145, 187,66)
      
   ));
   
