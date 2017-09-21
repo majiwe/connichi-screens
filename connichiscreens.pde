@@ -6,10 +6,10 @@ import java.util.Map;
 import java.util.ArrayList;
 
 PFont PrimaryFont;
-PShape hexagon;
+PShape hexagon, videohexa;
 
 final float FADE_DUR = 0.5,
-            ANIMATION_DUR = 1.0,
+            ANIMATION_DUR = 0.5,
             ANNOUNCEMENT_DUR = 10.0,
             TEASER_DUR = 15;
             
@@ -20,7 +20,6 @@ final int SCREEN_WIDTH = 1920,
 
 boolean record = false;
 boolean framerate = false;
-boolean paused = false;
 boolean debug = false;
 
 // Parameter for currentTeaserList
@@ -36,6 +35,7 @@ Videolayer vLayer;
 Map<String, ColorSet> myColors = new HashMap<String, ColorSet>();
 ColorSet aktColor;
 color defaultColor;
+String showDay;
 
 Mediatype playType;
 int teaserLength = 0; // Total number of movies
@@ -109,7 +109,7 @@ float endOffset = (TEASER_DUR - (2*(FADE_DUR+ANIMATION_DUR)));
      //Step - Move In   
      teaserSeq.beginStep();
        
-       teaserSeq.add(vLayer.setAnimation(ANIMATION_DUR*2, 1.0, "x:960",Ani.LINEAR));
+       teaserSeq.add(vLayer.setAnimation(ANIMATION_DUR*2, 1.0, "x:760",Ani.LINEAR));
        teaserSeq.add(teaserHeadline.setAnimation(ANIMATION_DUR*2, 1.0,"fontX:"+teaserHeadline.endPos_X,Ani.QUAD_OUT));
        teaserSeq.add(teaserSubheadline.setAnimation(ANIMATION_DUR*2, 1.0,"fontX:"+teaserSubheadline.endPos_X,Ani.QUAD_OUT));
        
@@ -253,7 +253,7 @@ void initTeaserText() {
       teaserTime = new AnimatedText("11:30", PrimaryFont, 100, defaultColor, 500, 850, CENTER,CENTER);
       teaserTime.initAnimation(BOTTOM);
       
-      teaserDay = new AnimatedText("Samstag", PrimaryFont, 60, defaultColor, 380, 720, RIGHT, TOP);
+      teaserDay = new AnimatedText(showDay, PrimaryFont, 60, defaultColor, 380, 720, RIGHT, TOP);
       teaserDay.initAnimation(RIGHT);
       
       teaserLocation = new AnimatedText("Gesellschaftsaal", PrimaryFont, 65, defaultColor, 615, 1000, LEFT, BOTTOM);
@@ -291,6 +291,7 @@ void setup() {
 
   //load Shape 
   hexagon = loadShape(dataPath("assets/shapes/hexa-sharp.svg"));
+  videohexa = loadShape(dataPath("assets/shapes/new-hexa.svg"));
   defaultColor = color(0,0,0);
    
   //set Font
@@ -302,6 +303,10 @@ void setup() {
   logoImage = loadImage(dataPath("assets/images/logo_small.png"));
   feierabend = loadImage(dataPath("assets/images/feierabend.jpg"));
   
+  if(day() == 22) { showDay = "Freitag"; }
+  else if(day() == 23) { showDay = "Samstag";}
+  else { showDay = "Sonntag"; }
+  showDay = "Freitag";
   // init default-styling
   noStroke();
   fill(255);
@@ -315,12 +320,12 @@ void setup() {
   //blende.setLogo(logoImage);
     
   // set up the videoLayer
-  vLayer = new Videolayer (hexagon, 1920, -50, 1080, 1080);
-  vLayer.setRotation(-45);
+  vLayer = new Videolayer (videohexa, 1920, 0, 1080, 1080);
+  vLayer.setRotation(0);
   vLayer.setupBackground(50,-50);
    
   //Set up our TeaserFiles
-  teaserList = new TeaserList("teaser.csv");
+  teaserList = new TeaserList("teaser-utf8.csv");
   
   firstRun = true;
   playType = Mediatype.TEASER;
