@@ -78,7 +78,7 @@ class AnimatedText extends AnimatedObject {
   }
   
   void setOffsetPosition() { 
-    float offX = 0, offY = 0;
+    float offX = 0, offY = 5;
     switch(this.aniDirection) {
       case RIGHT:  offX = this.textWidth; break;
       case LEFT:   offX = (-this.textWidth); break;
@@ -114,7 +114,7 @@ class AnimatedText extends AnimatedObject {
           win.rect(0,0,this.textWidth, this.textHeight);
         }
         win.fill(this.fillColor);
-        win.textAlign(this.alignX,this.alignY);
+        win.textAlign(this.alignX,(this.alignY));
         win.textFont(font, this.fontSize);
         win.textLeading(this.fontSize);
         win.text(this.text, this.fontX, this.fontY);
