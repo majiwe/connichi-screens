@@ -3,8 +3,7 @@ class Blende extends AnimatedObject{
   PGraphics mask;
   boolean logo = false;
   PImage logoImage, stage;
-  ArrayList<PImage> backgroundImage;  
-  AniSequence blendeSeq;
+  ArrayList<PImage> backgroundImage; 
   
   Blende(int x , int y, int w, int h){
     super(x,y,w,h);
@@ -19,9 +18,7 @@ class Blende extends AnimatedObject{
     mask = createGraphics(this.width, this.height);
     
   }
-  void replaceBlende() {
-    //this.stage = this.backgroundImage.get(int(random(this.backgroundImage.length())));
-  }
+  
   void initMask(String type) {
     /* if (type == "curtain") {*/
        this.maskWidth = 1920;
@@ -66,33 +63,11 @@ class Blende extends AnimatedObject{
     g.removeCache(this.stage);
   }
   
-  void initAnimationSequence(PApplet pa) {
-    blendeSeq = new AniSequence(pa); 
-    blendeSeq.beginSequence();
-           
-       //Step - Close Blende   
-       blendeSeq.beginStep();
-         blendeSeq.add(blende.setAnimation(FADE_DUR,0.0,"maskY:540,maskHeight:0", Ani.QUAD_OUT));
-       blendeSeq.endStep();  
-     
-       //Step - Open Blende
-       blendeSeq.beginStep();
-         blendeSeq.add(blende.setAnimation(FADE_DUR,0.0,"maskY:0,maskHeight:1080", Ani.QUAD_IN));
-       blendeSeq.endStep();
-    blendeSeq.endSequence();
-    blendeSeq.start();
-  }
-  
   void sequenceEnd() {
     int in = int(random(4));
-    println("sequenceEnd");
       this.stage = this.backgroundImage.get(in);
   }
   void seqEnd() {println("seqEnd"); }
-  
-  void start (){
-      blendeSeq.start();
-  }
   
   Ani[] setAnimation(String type, float dur, float offset, String direction){
       // if (type == "curtain") { 
