@@ -148,17 +148,17 @@ void initColorSet() {
   //default
   myColors.put ("default", new ColorSet(
       color(255, 255, 255),
-      color(255 ,255, 255),
+      color(175 ,175, 175),
       color(154, 154, 154),
       color(37,37,37),
       color(101, 101, 101),
       color(60, 60, 60)
   )); 
 
-   //guests
+   //guests **
    myColors.put ("guest", new ColorSet(
       color(255, 255, 255),
-      color(255 ,255, 255),
+      color(155 ,155, 155),
       color(138, 41, 138),
       color(39, 20, 39),
       color(130, 40, 119),
@@ -167,71 +167,68 @@ void initColorSet() {
     
   //programm
   myColors.put ("programm", new ColorSet(
-      color(255, 255, 255),
-      color(255 ,255, 255),
-      color(138, 41, 138),
-      color(39, 20, 39),
-      color(130, 40, 119),
-      color(77, 28, 77)
+      color(0, 0, 0),
+      color(75 ,75, 75),
+      color(188, 174, 5),
+      color(250, 231, 7),
+      color(143, 132, 6),
+      color(188, 174, 5)
     ));
-    
- myColors.put ("guest", new ColorSet(
-     color(27, 27, 27),
-     color(255, 255, 255),
-     color(143, 132, 5),
-     color(250, 230, 10),
-     color(241, 188, 64),
-     color(190, 175, 5)
-  ));
   
+  //showact
   myColors.put ("showact", new ColorSet(
      color(255, 255, 255),
-     color(255, 255, 255),
+     color(175, 175, 175),
      color(118, 38, 5),
      color(234, 96, 37),
      color(225, 130, 48),
      color(127, 42, 6)
   ));
   
+  //contest **
   myColors.put ("contest", new ColorSet(
      color(255, 255, 255),
-     color(255, 255, 255),
+     color(175, 175, 175),
      color(188, 70, 115),
      color(45, 3, 20),
      color(101, 8, 43),
      color(188, 0, 78)
   ));
   
+  //event **
   myColors.put ("event", new ColorSet(
      color(255, 255, 255),
-     color(255, 255, 255),
+     color(175, 175, 175),
      color(50, 80, 139),
      color(13, 22, 41),
      color(19, 59, 139),
      color(43, 75, 139)
   ));
   
+  //workshop **
   myColors.put ("workshop", new ColorSet(
      color(255, 255, 255),
-     color(255, 255, 255),
+     color(175, 175, 175),
      color(0, 96, 126),
      color(13, 29, 39),
      color(77, 169,227),
      color(0, 195, 255)
   ));
   
+  //vortrag **
   myColors.put ("vortrag", new ColorSet(
      color(255, 255, 255),
-     color(255, 255, 255),
-     color(0, 96, 126),
-     color(0, 50, 66),
+     color(47, 71,3),
+     color(47, 71,3),
+     color(121, 181, 10),
      color(145, 187,66),
-     color(0, 195, 255)
+     color(170, 255,10)
+     
   ));
   
   myColors.put ("booth", new ColorSet(
      color(255, 255, 255),
-     color(255, 255, 255),
+     color(175, 175, 175),
      color(109, 174, 255),
      color(36, 63, 94),
      color(42, 99, 171),
