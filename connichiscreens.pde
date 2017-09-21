@@ -365,9 +365,6 @@ void draw() {
   if (record) {
     saveFrame(dataPath("screenshot/frame-#########.tga"));
   }
-  if (firstRun){
-    thread("checkNext");
-  }
 }
 
 void checkNext(boolean next) {
@@ -387,12 +384,13 @@ void checkNext(boolean next) {
     adsReady = false;
     if(next) {
       next = false;    
-      if (++adsIndex >= adsLength){
+      if (adsIndex+1 >= adsLength){
           adsIndex = 0;
-         // playAds = false;
           playType = Mediatype.TEASER;
+          firstRun = true;
+          checkNext();
           return;
-      }
+      } else { ++adsIndex; }
     }
     advert = this.loadMovie(adverts[adsIndex].getPath());
     adsReady = true;
@@ -402,13 +400,14 @@ void checkNext(boolean next) {
   else if(playType == Mediatype.TEASER) {
     if (next) {
       next = false;
-      if (++teaserIndex >= teaserList.length){
+      if (teaserIndex+1 >= teaserList.length){
           teaserIndex = 0;
           cicle++;
-          //playAds = true;
           playType = Mediatype.ADVERT;
+          firstRun = true;
+          checkNext();
           return;
-        }
+      } else { ++teaserIndex;}
     }
     loadTeaser(teaserIndex);
        
@@ -562,9 +561,11 @@ void displayTeaser(Movie movie){
 }
 void displayAdvert(Movie movie) {
     if(!isPlaying){ isPlaying = true; movie.play();}
+    float mt = movie.time();
+    float md = movie.duration();
     image(movie,0,0); 
     g.removeCache(movie);
-    if(movie.time() >= (movie.duration()-1)){isPlaying = false; blendeSeq.start();}
+    if(isPlaying && (mt >= md-1)){adsReady = false; isPlaying = false; blendeSeq.start();}
 }
 
 /************************************************************************************
@@ -655,11 +656,10 @@ void keyPressed() {
 /************************************************************************************
                           LoadFiles
 *************************************************************************************/   
-
   void callbackOpenBlende() {
     blende.sequenceEnd();
   }
-  void callbackClosedBlende() { if(!firstRun) { checkNext(true); } blende.seqEnd(); }
+  void callbackClosedBlende() { checkNext(!firstRun);}
   
 /************************************************************************************
                           Write Log
