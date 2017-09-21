@@ -116,7 +116,7 @@ class AnimatedText extends AnimatedObject {
         win.fill(this.fillColor);
         win.textAlign(this.alignX,this.alignY);
         win.textFont(font, this.fontSize);
-        win.textLeading((this.fontSize*1.1));
+        win.textLeading(this.fontSize);
         win.text(this.text, this.fontX, this.fontY);
         win.endDraw();
         image(win, (this.x+this.offsetX), (this.y+this.offsetY));
