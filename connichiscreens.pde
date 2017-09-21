@@ -109,7 +109,7 @@ float endOffset = (TEASER_DUR - (2*(FADE_DUR+ANIMATION_DUR)));
      //Step - Move In   
      teaserSeq.beginStep();
        
-       teaserSeq.add(vLayer.setAnimation(ANIMATION_DUR*2, 1.0, "x:760",Ani.LINEAR));
+       teaserSeq.add(vLayer.setAnimation(ANIMATION_DUR*2, 1.0, "x:790",Ani.LINEAR));
        teaserSeq.add(teaserHeadline.setAnimation(ANIMATION_DUR*2, 1.0,"fontX:"+teaserHeadline.endPos_X,Ani.QUAD_OUT));
        teaserSeq.add(teaserSubheadline.setAnimation(ANIMATION_DUR*2, 1.0,"fontX:"+teaserSubheadline.endPos_X,Ani.QUAD_OUT));
        
@@ -219,8 +219,8 @@ void initColorSet() {
   myColors.put ("vortrag", new ColorSet(
      color(255, 255, 255),
      color(47, 71,3),
-     color(47, 71,3),
      color(121, 181, 10),
+     color(47, 71,3),
      color(145, 187,66),
      color(170, 255,10)
      
@@ -490,7 +490,7 @@ void updateTeaser() {
       teaserHeadline.setColor(aktColor.primary);
       
       teaserSubheadline.setText(currentTeaser.subheadline);
-      teaserSubheadline.setColor(aktColor.primary);
+      teaserSubheadline.setColor(aktColor.secondary);
       
       teaserTime.setText(currentTeaser.time);
       teaserTime.setColor(aktColor.primary);
