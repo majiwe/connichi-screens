@@ -19,7 +19,7 @@ class Teaser {
     this.filePath = r.getString(f[6]);
   }
   public boolean shouldPlay(){
-    if (this.time != "off"){ 
+    if (this.time.contains(":")){ 
        int teaserTime = (parseInt((this.time).replace(":","")));
        String aktTime = ""+hour()+minute();
      
