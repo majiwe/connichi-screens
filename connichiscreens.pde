@@ -59,6 +59,7 @@ boolean announcement = false,
         isPlaying = false;    
     
 PImage bgImage,
+       feierabend,
        logoImage,
        errorPage;
        
@@ -77,11 +78,9 @@ String headline, information;
 /************************************************************************************
                           init Objects
 *************************************************************************************/  
+void initBlendeAnimation(){
 
-void initTeaserAnimation (String blendType) {
-float endOffset = (TEASER_DUR - (2*(FADE_DUR+ANIMATION_DUR)));
-    
-  //blende.initAnimationSequence(this);
+    //blende.initAnimationSequence(this);
     
     blendeSeq = new AniSequence(this); 
     blendeSeq.beginSequence();
@@ -99,6 +98,10 @@ float endOffset = (TEASER_DUR - (2*(FADE_DUR+ANIMATION_DUR)));
        blendeSeq.endStep();
     blendeSeq.endSequence();
     blendeSeq.start();
+
+}
+void initTeaserAnimation (String blendType) {
+float endOffset = (TEASER_DUR - (2*(FADE_DUR+ANIMATION_DUR)));
     
    teaserSeq = new AniSequence(this);
    teaserSeq.beginSequence();
@@ -106,9 +109,9 @@ float endOffset = (TEASER_DUR - (2*(FADE_DUR+ANIMATION_DUR)));
      //Step - Move In   
      teaserSeq.beginStep();
        
-       teaserSeq.add(vLayer.setAnimation(ANIMATION_DUR, FADE_DUR, "x:960",Ani.LINEAR));
-       teaserSeq.add(teaserHeadline.setAnimation(ANIMATION_DUR, FADE_DUR,"fontX:"+teaserHeadline.endPos_X,Ani.QUAD_OUT));
-       teaserSeq.add(teaserSubheadline.setAnimation(ANIMATION_DUR, FADE_DUR,"fontX:"+teaserSubheadline.endPos_X,Ani.QUAD_OUT));
+       teaserSeq.add(vLayer.setAnimation(ANIMATION_DUR*2, 1.0, "x:960",Ani.LINEAR));
+       teaserSeq.add(teaserHeadline.setAnimation(ANIMATION_DUR*2, 1.0,"fontX:"+teaserHeadline.endPos_X,Ani.QUAD_OUT));
+       teaserSeq.add(teaserSubheadline.setAnimation(ANIMATION_DUR*2, 1.0,"fontX:"+teaserSubheadline.endPos_X,Ani.QUAD_OUT));
        
        float ornamentTime = (FADE_DUR+ANIMATION_DUR);
        teaserSeq.add(leftOrnament.setAnimation(ANIMATION_DUR, ornamentTime, "scale: 1.0", Ani.ELASTIC_OUT));
@@ -244,13 +247,13 @@ void initTeaserText() {
       teaserHeadline = new AnimatedText("Teaserheadline", PrimaryFont, 100, defaultColor, 100,450, LEFT, BOTTOM);
       teaserHeadline.initAnimation(LEFT);
       
-      teaserSubheadline = new AnimatedText("TeaserSubheadline", PrimaryFont, 70, defaultColor, 100,475, LEFT, TOP);
+      teaserSubheadline = new AnimatedText("TeaserSubheadline", PrimaryFont, 65, defaultColor, 100,475, LEFT, TOP);
       teaserSubheadline.initAnimation(LEFT);
       
       teaserTime = new AnimatedText("11:30", PrimaryFont, 100, defaultColor, 500, 850, CENTER,CENTER);
       teaserTime.initAnimation(BOTTOM);
       
-      teaserDay = new AnimatedText("Freitag", PrimaryFont, 60, defaultColor, 380, 720, RIGHT, TOP);
+      teaserDay = new AnimatedText("Samstag", PrimaryFont, 60, defaultColor, 380, 720, RIGHT, TOP);
       teaserDay.initAnimation(RIGHT);
       
       teaserLocation = new AnimatedText("Gesellschaftsaal", PrimaryFont, 65, defaultColor, 615, 1000, LEFT, BOTTOM);
@@ -297,7 +300,7 @@ void setup() {
 
   
   logoImage = loadImage(dataPath("assets/images/logo_small.png"));
-
+  feierabend = loadImage(dataPath("assets/images/feierabend.jpg"));
   
   // init default-styling
   noStroke();
@@ -327,6 +330,8 @@ void setup() {
   this.initOrnament();
   
   
+
+  this.initBlendeAnimation();
   this.initTeaserAnimation("diagonal");
   
   //Write File
@@ -351,7 +356,7 @@ void draw() {
       if (adsReady) { playMovie(advert, false); }
       break;
     case CLOSING:
-      break;
+       image(feierabend,0,0); break;
     default:     
   }
   
@@ -421,10 +426,9 @@ void playMovie(Movie movie, boolean isTeaser){
   if(isTeaser){ displayTeaser(movie); }
   else { displayAdvert(movie); }
   
-  //if (blend) {
-    blende.display();
-    debugLog("after backgroundImage");
-  //}
+  blende.display();
+  debugLog("after backgroundImage");
+
   showFramerate ();
 }
 
@@ -585,7 +589,7 @@ boolean checkAnnouncement(String filename) {
 void showAnnouncement(String headline, String information){
   if (!isPlaying) { startAnnouncement = millis(); isPlaying= true; }
   image(errorPage,0,0);
-  if(timePassed(startAnnouncement) >= ANNOUNCEMENT_DUR){isPlaying = false; checkNext(false);}
+  if(timePassed(startAnnouncement) >= ANNOUNCEMENT_DUR){isPlaying = false; blendeSeq.start();}
 }
 
 
@@ -646,10 +650,14 @@ void keyPressed() {
   }
 }
 
+/************************************************************************************
+                          LoadFiles
+*************************************************************************************/   
+
   void callbackOpenBlende() {
     blende.sequenceEnd();
   }
-  void callbackClosedBlende() { checkNext(true); blende.seqEnd(); }
+  void callbackClosedBlende() { if(!firstRun) { checkNext(true); } blende.seqEnd(); }
   
 /************************************************************************************
                           Write Log
