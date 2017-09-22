@@ -278,10 +278,10 @@ void initOrnament() {
 void setup() {
   
   //set Size of our canvas & framerate
-  size(1920,1080);
+ // size(1920,1080);
   surface.setResizable(true);
   smooth(2);
-  //fullScreen(1); 
+  fullScreen(1); 
   
   // Init AnimationClasses
   Ani.init(this);
@@ -303,7 +303,6 @@ void setup() {
   if(day() == 22) { showDay = "Freitag"; }
   else if(day() == 23) { showDay = "Samstag";}
   else { showDay = "Sonntag"; }
-  showDay = "Freitag";
   // init default-styling
   noStroke();
   fill(255);
