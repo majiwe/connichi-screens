@@ -391,6 +391,8 @@ void checkNext(boolean next) {
           return;
       } else { ++adsIndex; }
     }
+    
+  if (advert != null) { advert = null; }
     advert = this.loadMovie(adverts[adsIndex].getPath());
     adsReady = true;
     playLog.write("Advertisment was played");  
@@ -481,6 +483,7 @@ Movie loadMovie(String Path) {
 void updateTeaser() {
       
       //TeaserVideo
+      if (teaser != null) { teaser = null; }
       teaser = new Movie(this, dataPath("teaser/"+currentTeaser.filePath+".mp4"));
       teaser.noLoop();
       teaser.play();
@@ -556,7 +559,7 @@ void displayTeaser(Movie movie){
   teaserTime.display();
   teaserLocation.display();
   debugLog("afterText");
-  if(teaserSeq.isEnded()){ isPlaying = false; blendeSeq.start();}
+  if(teaserSeq.isEnded()){ isPlaying = false; movie.stop(); blendeSeq.start();}
 }
 void displayAdvert(Movie movie) {
     if(!isPlaying){ isPlaying = true; movie.play();}
@@ -564,7 +567,7 @@ void displayAdvert(Movie movie) {
     float md = movie.duration();
     image(movie,0,0); 
     g.removeCache(movie);
-    if(isPlaying && (mt >= md-1)){adsReady = false; isPlaying = false; blendeSeq.start();}
+    if(isPlaying && (mt >= md-1)){adsReady = false; isPlaying = false; movie.stop(); blendeSeq.start();}
 }
 
 /************************************************************************************
